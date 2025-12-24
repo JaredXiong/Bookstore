@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookstore.mapper.BookMapper">
+    <insert id="insert" parameterType="com.bookstore.entity.Book">
+        INSERT INTO `book` (`book_name`, `author`, `publisher`, `price`, `stock_num`, `sold_num`, `introduction`, `cover_image`, `is_active`, `book_type`)
+        VALUES (#{bookName}, #{author}, #{publisher}, #{price}, #{stockNum}, #{soldNum}, #{introduction}, #{coverImage}, #{isActive}, #{bookType})
+    </insert>
+    
+    <select id="selectById" resultType="com.bookstore.entity.Book" parameterType="java.lang.Integer">
+        SELECT `book_id` as bookId, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `is_active` as isActive, `book_type` as bookType
+        FROM `book`
+        WHERE `book_id` = #{bookId}
+    </select>
+    
+    <select id="selectAll" resultType="com.bookstore.entity.Book">
+        SELECT `book_id` as bookId, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `is_active` as isActive, `book_type` as bookType
+        FROM `book`
+    </select>
+    
+    <select id="selectActive" resultType="com.bookstore.entity.Book">
+        SELECT `book_id` as bookId, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `is_active` as isActive, `book_type` as bookType
+        FROM `book`
+        WHERE `is_active` = true
+    </select>
+    
+    <update id="update" parameterType="com.bookstore.entity.Book">
+        UPDATE `book`
+        SET `book_name` = #{bookName}, `author` = #{author}, `publisher` = #{publisher}, `price` = #{price}, `stock_num` = #{stockNum}, `sold_num` = #{soldNum}, `introduction` = #{introduction}, `cover_image` = #{coverImage}, `is_active` = #{isActive}, `book_type` = #{bookType}
+        WHERE `book_id` = #{bookId}
+    </update>
+    
+    <update id="updateStock" parameterType="java.lang.Integer">
+        UPDATE `book`
+        SET `stock_num` = `stock_num` - #{quantity}, `sold_num` = `sold_num` + #{quantity}
+        WHERE `book_id` = #{bookId}
+    </update>
+    
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM `book`
+        WHERE `book_id` = #{bookId}
+    </delete>
+</mapper>

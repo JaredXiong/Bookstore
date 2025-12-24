@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookstore.mapper.DiscountMapper">
+    <insert id="insert" parameterType="com.bookstore.entity.Discount">
+        INSERT INTO `discount` (`name`, `description`, `discount_rate`, `start_time`, `end_time`, `is_active`)
+        VALUES (#{name}, #{description}, #{discountRate}, #{startTime}, #{endTime}, #{isActive})
+    </insert>
+
+    <select id="selectById" parameterType="java.lang.Integer" resultType="com.bookstore.entity.Discount">
+        SELECT `discount_id`, `name`, `description`, `discount_rate`, `start_time`, `end_time`, `is_active`
+        FROM `discount`
+        WHERE `discount_id` = #{discountId}
+    </select>
+
+    <select id="selectAll" resultType="com.bookstore.entity.Discount">
+        SELECT `discount_id`, `name`, `description`, `discount_rate`, `start_time`, `end_time`, `is_active`
+        FROM `discount`
+        ORDER BY `start_time` DESC
+    </select>
+
+    <select id="selectCurrent" resultType="com.bookstore.entity.Discount">
+        SELECT `discount_id`, `name`, `description`, `discount_rate`, `start_time`, `end_time`, `is_active`
+        FROM `discount`
+        WHERE `is_active` = 1
+          AND `start_time` <= NOW()
+          AND `end_time` >= NOW()
+        ORDER BY `start_time` ASC
+    </select>
+
+    <update id="update" parameterType="com.bookstore.entity.Discount">
+        UPDATE `discount`
+        SET `name` = #{name},
+            `description` = #{description},
+            `discount_rate` = #{discountRate},
+            `start_time` = #{startTime},
+            `end_time` = #{endTime},
+            `is_active` = #{isActive}
+        WHERE `discount_id` = #{discountId}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM `discount`
+        WHERE `discount_id` = #{discountId}
+    </delete>
+</mapper>

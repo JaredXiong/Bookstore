@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookstore.mapper.BookImageMapper">
+    <insert id="insert" parameterType="com.bookstore.entity.BookImage">
+        INSERT INTO `book_image` (`book_id`, `image_url`, `is_main`)
+        VALUES (#{bookId}, #{imageUrl}, #{isMain})
+    </insert>
+
+    <select id="selectById" parameterType="java.lang.Integer" resultType="com.bookstore.entity.BookImage">
+        SELECT `image_id`, `book_id`, `image_url`, `is_main`
+        FROM `book_image`
+        WHERE `image_id` = #{imageId}
+    </select>
+
+    <select id="selectByBookId" parameterType="java.lang.Integer" resultType="com.bookstore.entity.BookImage">
+        SELECT `image_id`, `book_id`, `image_url`, `is_main`
+        FROM `book_image`
+        WHERE `book_id` = #{bookId}
+    </select>
+
+    <update id="update" parameterType="com.bookstore.entity.BookImage">
+        UPDATE `book_image`
+        SET `book_id` = #{bookId},
+            `image_url` = #{imageUrl},
+            `is_main` = #{isMain}
+        WHERE `image_id` = #{imageId}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM `book_image`
+        WHERE `image_id` = #{imageId}
+    </delete>
+
+    <delete id="deleteByBookId" parameterType="java.lang.Integer">
+        DELETE FROM `book_image`
+        WHERE `book_id` = #{bookId}
+    </delete>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookstore.mapper.ShoppingCartMapper">
+    <insert id="insert" parameterType="com.bookstore.entity.ShoppingCart">
+        INSERT INTO `shopping_cart` (`user_id`, `book_id`, `quantity`, `create_time`)
+        VALUES (#{userId}, #{bookId}, #{quantity}, #{createTime})
+    </insert>
+
+    <select id="selectById" parameterType="java.lang.Integer" resultType="com.bookstore.entity.ShoppingCart">
+        SELECT `cart_id`, `user_id`, `book_id`, `quantity`, `create_time`
+        FROM `shopping_cart`
+        WHERE `cart_id` = #{cartId}
+    </select>
+
+    <select id="selectByUserAndBook" resultType="com.bookstore.entity.ShoppingCart">
+        SELECT `cart_id`, `user_id`, `book_id`, `quantity`, `create_time`
+        FROM `shopping_cart`
+        WHERE `user_id` = #{param1}
+          AND `book_id` = #{param2}
+    </select>
+
+    <select id="selectByUserId" parameterType="java.lang.Integer" resultType="com.bookstore.entity.ShoppingCart">
+        SELECT `cart_id`, `user_id`, `book_id`, `quantity`, `create_time`
+        FROM `shopping_cart`
+        WHERE `user_id` = #{userId}
+        ORDER BY `create_time` DESC
+    </select>
+
+    <update id="updateQuantity">
+        UPDATE `shopping_cart`
+        SET `quantity` = #{param2}
+        WHERE `cart_id` = #{param1}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM `shopping_cart`
+        WHERE `cart_id` = #{cartId}
+    </delete>
+
+    <delete id="deleteByUserAndBook">
+        DELETE FROM `shopping_cart`
+        WHERE `user_id` = #{param1}
+          AND `book_id` = #{param2}
+    </delete>
+
+    <delete id="deleteByUserId" parameterType="java.lang.Integer">
+        DELETE FROM `shopping_cart`
+        WHERE `user_id` = #{userId}
+    </delete>
+</mapper>

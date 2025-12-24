@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookstore.mapper.OrderMapper">
+    <insert id="insert" parameterType="com.bookstore.entity.Order">
+        INSERT INTO `order` (`order_id`, `user_id`, `total_amount`, `delivery_address`, `order_status`, `create_time`)
+        VALUES (#{orderId}, #{userId}, #{totalAmount}, #{deliveryAddress}, #{orderStatus}, #{createTime})
+    </insert>
+    
+    <select id="selectById" resultType="com.bookstore.entity.Order" parameterType="java.lang.String">
+        SELECT `order_id` as orderId, `user_id` as userId, `total_amount` as totalAmount, `delivery_address` as deliveryAddress, `order_status` as orderStatus, `create_time` as createTime
+        FROM `order`
+        WHERE `order_id` = #{orderId}
+    </select>
+    
+    <select id="selectByUserId" resultType="com.bookstore.entity.Order" parameterType="java.lang.Integer">
+        SELECT `order_id` as orderId, `user_id` as userId, `total_amount` as totalAmount, `delivery_address` as deliveryAddress, `order_status` as orderStatus, `create_time` as createTime
+        FROM `order`
+        WHERE `user_id` = #{userId}
+        ORDER BY `create_time` DESC
+    </select>
+    
+    <select id="selectByStatus" resultType="com.bookstore.entity.Order" parameterType="java.lang.String">
+        SELECT `order_id` as orderId, `user_id` as userId, `total_amount` as totalAmount, `delivery_address` as deliveryAddress, `order_status` as orderStatus, `create_time` as createTime
+        FROM `order`
+        WHERE `order_status` = #{status}
+        ORDER BY `create_time` DESC
+    </select>
+    
+    <select id="selectAll" resultType="com.bookstore.entity.Order">
+        SELECT `order_id` as orderId, `user_id` as userId, `total_amount` as totalAmount, `delivery_address` as deliveryAddress, `order_status` as orderStatus, `create_time` as createTime
+        FROM `order`
+        ORDER BY `create_time` DESC
+    </select>
+    
+    <update id="update" parameterType="com.bookstore.entity.Order">
+        UPDATE `order`
+        SET `user_id` = #{userId}, `total_amount` = #{totalAmount}, `delivery_address` = #{deliveryAddress}, `order_status` = #{orderStatus}, `create_time` = #{createTime}
+        WHERE `order_id` = #{orderId}
+    </update>
+    
+    <update id="updateStatus" parameterType="java.lang.String">
+        UPDATE `order`
+        SET `order_status` = #{status}
+        WHERE `order_id` = #{orderId}
+    </update>
+    
+    <delete id="delete" parameterType="java.lang.String">
+        DELETE FROM `order`
+        WHERE `order_id` = #{orderId}
+    </delete>
+    
+    <select id="selectExpiredUnpaid" resultType="com.bookstore.entity.Order">
+        SELECT `order_id` as orderId, `user_id` as userId, `total_amount` as totalAmount, `delivery_address` as deliveryAddress, `order_status` as orderStatus, `create_time` as createTime
+        FROM `order`
+        WHERE `order_status` = '待支付' AND `create_time` < DATE_SUB(NOW(), INTERVAL 30 MINUTE)
+    </select>
+</mapper>
