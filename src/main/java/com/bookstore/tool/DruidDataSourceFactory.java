@@ -15,7 +15,7 @@ public class DruidDataSourceFactory implements DataSourceFactory {
     }
 
     @Override
-    public DataSource getDataSource() {
+    public DataSource  getDataSource() {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setDriverClassName(properties.getProperty("driver"));
         dataSource.setUrl(properties.getProperty("url"));

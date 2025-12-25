@@ -77,7 +77,7 @@ D:\develop\JavaIDEA\Bookstore
 │   │   │   │   ├── ShoppingCartMapper.xml
 │   │   │   │   └── UserMapper.xml
 │   │   │   └── mybatis-config.xml       # MyBatis配置
-│   │   └── web/                         # Web资源
+│   │   └── webapp/                      # Web资源
 │   │       ├── WEB-INF/
 │   │       │   ├── web.xml              # Web应用配置
 │   │       │   └── lib/                 # 依赖库(由Maven自动管理)

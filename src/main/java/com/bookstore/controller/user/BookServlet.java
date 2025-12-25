@@ -14,7 +14,7 @@ import java.util.List;
 
 @WebServlet(name = "BookServlet", urlPatterns = "/user/book")
 public class BookServlet extends HttpServlet {
-    private BookService bookService = new BookServiceImpl();
+    private final BookService bookService = new BookServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
