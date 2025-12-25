@@ -4,39 +4,40 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bookstore.mapper.DiscountMapper">
     <insert id="insert" parameterType="com.bookstore.entity.Discount">
-        INSERT INTO `discount` (`name`, `description`, `discount_rate`, `start_time`, `end_time`, `is_active`)
-        VALUES (#{name}, #{description}, #{discountRate}, #{startTime}, #{endTime}, #{isActive})
+        INSERT INTO `discount` (`discount_type`, `discount_rate`, `applicable_books`, `start_time`, `end_time`)
+        VALUES (#{discountType}, #{discountRate}, #{applicableBooks}, #{startTime}, #{endTime})
     </insert>
 
     <select id="selectById" parameterType="java.lang.Integer" resultType="com.bookstore.entity.Discount">
-        SELECT `discount_id`, `name`, `description`, `discount_rate`, `start_time`, `end_time`, `is_active`
+        SELECT `discount_id`, `discount_type` as discountType, `discount_rate` as discountRate, 
+               `applicable_books` as applicableBooks, `start_time` as startTime, `end_time` as endTime
         FROM `discount`
         WHERE `discount_id` = #{discountId}
     </select>
 
     <select id="selectAll" resultType="com.bookstore.entity.Discount">
-        SELECT `discount_id`, `name`, `description`, `discount_rate`, `start_time`, `end_time`, `is_active`
+        SELECT `discount_id`, `discount_type` as discountType, `discount_rate` as discountRate, 
+               `applicable_books` as applicableBooks, `start_time` as startTime, `end_time` as endTime
         FROM `discount`
         ORDER BY `start_time` DESC
     </select>
 
     <select id="selectCurrent" resultType="com.bookstore.entity.Discount">
-        SELECT `discount_id`, `name`, `description`, `discount_rate`, `start_time`, `end_time`, `is_active`
+        SELECT `discount_id`, `discount_type` as discountType, `discount_rate` as discountRate, 
+               `applicable_books` as applicableBooks, `start_time` as startTime, `end_time` as endTime
         FROM `discount`
-        WHERE `is_active` = 1
-          AND `start_time` <= NOW()
-          AND `end_time` >= NOW()
+        WHERE `start_time` &lt;= NOW()
+          AND `end_time` &gt;= NOW()
         ORDER BY `start_time` ASC
     </select>
 
     <update id="update" parameterType="com.bookstore.entity.Discount">
         UPDATE `discount`
-        SET `name` = #{name},
-            `description` = #{description},
+        SET `discount_type` = #{discountType},
             `discount_rate` = #{discountRate},
+            `applicable_books` = #{applicableBooks},
             `start_time` = #{startTime},
-            `end_time` = #{endTime},
-            `is_active` = #{isActive}
+            `end_time` = #{endTime}
         WHERE `discount_id` = #{discountId}
     </update>
 

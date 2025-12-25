@@ -25,6 +25,18 @@
         WHERE `is_active` = true
     </select>
     
+    <!-- 搜索图书 -->
+    <select id="searchBooks" resultType="com.bookstore.entity.Book" parameterType="java.lang.String">
+        SELECT `book_id` as bookId, `ISBN`, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `book_type` as bookType, `is_active` as isActive
+        FROM `book`
+        WHERE `is_active` = true
+        AND (`book_name` LIKE CONCAT('%', #{keyword}, '%')
+        OR `author` LIKE CONCAT('%', #{keyword}, '%')
+        OR `ISBN` LIKE CONCAT('%', #{keyword}, '%')
+        OR `publisher` LIKE CONCAT('%', #{keyword}, '%')
+        OR `introduction` LIKE CONCAT('%', #{keyword}, '%'))
+    </select>
+    
     <update id="update" parameterType="com.bookstore.entity.Book">
         UPDATE `book`
         SET `book_name` = #{bookName}, `author` = #{author}, `publisher` = #{publisher}, `price` = #{price}, `stock_num` = #{stockNum}, `sold_num` = #{soldNum}, `introduction` = #{introduction}, `cover_image` = #{coverImage}, `is_active` = #{isActive}, `book_type` = #{bookType}

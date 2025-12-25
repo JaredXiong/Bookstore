@@ -21,7 +21,7 @@ public class DruidDataSourceFactory implements DataSourceFactory {
         dataSource.setUrl(properties.getProperty("url"));
         dataSource.setUsername(properties.getProperty("username"));
         dataSource.setPassword(properties.getProperty("password"));
-        // 使用默认配置，无需额外设置
+        // 使用默认配置
         return dataSource;
     }
 }

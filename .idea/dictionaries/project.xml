@@ -2,8 +2,18 @@
   <dictionary name="project">
     <words>
       <w>druid连接池</w>
+      <w>mvnw</w>
       <w>mysql驱动</w>
+      <w>下单用户id</w>
+      <w>创建sqlsessionfactory</w>
+      <w>排除登录页面和登录servlet</w>
+      <w>清除记住账号密码的cookie</w>
+      <w>用户id</w>
       <w>自定义css</w>
+      <w>被评论图书id</w>
+      <w>评论id</w>
+      <w>评论者用户id</w>
+      <w>调用service层进行登录验证</w>
     </words>
   </dictionary>
 </component>

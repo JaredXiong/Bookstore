@@ -17,6 +17,6 @@ public class User {
     private String email;         // 电子邮件
     private String address;       // 居住地址（默认收货地址）
     private String postalCode;    // 邮政编码
-    private String userType;      // 用户类型：customer-普通用户，admin-管理员用户
+    private String userType;      // 用户类型：user-普通用户，admin-管理员用户
     private Date registerTime;    // 用户注册时间
 }

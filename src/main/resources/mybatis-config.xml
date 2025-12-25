@@ -22,7 +22,14 @@
 
     <!-- 配置映射器 -->
     <mappers>
-        <!-- 使用包扫描方式 -->
-        <package name="com.bookstore.mapper" />
+        <!-- 使用资源文件方式 -->
+        <mapper resource="mapper/BookImageMapper.xml" />
+        <mapper resource="mapper/BookMapper.xml" />
+        <mapper resource="mapper/CommentMapper.xml" />
+        <mapper resource="mapper/DiscountMapper.xml" />
+        <mapper resource="mapper/OrderItemMapper.xml" />
+        <mapper resource="mapper/OrderMapper.xml" />
+        <mapper resource="mapper/ShoppingCartMapper.xml" />
+        <mapper resource="mapper/UserMapper.xml" />
     </mappers>
 </configuration>

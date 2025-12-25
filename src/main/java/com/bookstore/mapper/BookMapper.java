@@ -11,4 +11,6 @@ public interface BookMapper {
     void update(Book book);
     void updateStock(Integer bookId, Integer quantity);
     void delete(Integer bookId);
+    // 搜索图书方法
+    List<Book> searchBooks(String keyword);
 }
