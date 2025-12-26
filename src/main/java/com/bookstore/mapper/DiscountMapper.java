@@ -10,4 +10,5 @@ public interface DiscountMapper {
     List<Discount> selectCurrent();
     void update(Discount discount);
     void delete(Integer discountId);
+    Integer getActiveDiscountCount();
 }

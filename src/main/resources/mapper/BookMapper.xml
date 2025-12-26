@@ -4,42 +4,42 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bookstore.mapper.BookMapper">
     <insert id="insert" parameterType="com.bookstore.entity.Book">
-        INSERT INTO `book` (`book_name`, `author`, `publisher`, `price`, `stock_num`, `sold_num`, `introduction`, `cover_image`, `is_active`, `book_type`)
-        VALUES (#{bookName}, #{author}, #{publisher}, #{price}, #{stockNum}, #{soldNum}, #{introduction}, #{coverImage}, #{isActive}, #{bookType})
+        INSERT INTO `book` (`isbn`, `book_name`, `author`, `publisher`, `price`, `stock_num`, `sold_num`, `introduction`, `cover_image`, `is_active`, `book_type`)
+        VALUES (#{ISBN}, #{bookName}, #{author}, #{publisher}, #{price}, #{stockNum}, #{soldNum}, #{introduction}, #{coverImage}, #{isActive}, #{bookType})
     </insert>
     
     <select id="selectById" resultType="com.bookstore.entity.Book" parameterType="java.lang.Integer">
-        SELECT `book_id` as bookId, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `is_active` as isActive, `book_type` as bookType
+        SELECT `book_id` as bookId, `isbn` as ISBN, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `is_active` as isActive, `book_type` as bookType
         FROM `book`
         WHERE `book_id` = #{bookId}
     </select>
     
     <select id="selectAll" resultType="com.bookstore.entity.Book">
-        SELECT `book_id` as bookId, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `is_active` as isActive, `book_type` as bookType
+        SELECT `book_id` as bookId, `isbn` as ISBN, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `is_active` as isActive, `book_type` as bookType
         FROM `book`
     </select>
     
     <select id="selectActive" resultType="com.bookstore.entity.Book">
-        SELECT `book_id` as bookId, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `is_active` as isActive, `book_type` as bookType
+        SELECT `book_id` as bookId, `isbn` as ISBN, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `is_active` as isActive, `book_type` as bookType
         FROM `book`
         WHERE `is_active` = true
     </select>
     
     <!-- 搜索图书 -->
     <select id="searchBooks" resultType="com.bookstore.entity.Book" parameterType="java.lang.String">
-        SELECT `book_id` as bookId, `ISBN`, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `book_type` as bookType, `is_active` as isActive
+        SELECT `book_id` as bookId, `isbn` as ISBN, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `book_type` as bookType, `is_active` as isActive
         FROM `book`
         WHERE `is_active` = true
         AND (`book_name` LIKE CONCAT('%', #{keyword}, '%')
         OR `author` LIKE CONCAT('%', #{keyword}, '%')
-        OR `ISBN` LIKE CONCAT('%', #{keyword}, '%')
+        OR `isbn` LIKE CONCAT('%', #{keyword}, '%')
         OR `publisher` LIKE CONCAT('%', #{keyword}, '%')
         OR `introduction` LIKE CONCAT('%', #{keyword}, '%'))
     </select>
     
     <update id="update" parameterType="com.bookstore.entity.Book">
         UPDATE `book`
-        SET `book_name` = #{bookName}, `author` = #{author}, `publisher` = #{publisher}, `price` = #{price}, `stock_num` = #{stockNum}, `sold_num` = #{soldNum}, `introduction` = #{introduction}, `cover_image` = #{coverImage}, `is_active` = #{isActive}, `book_type` = #{bookType}
+        SET `isbn` = #{ISBN}, `book_name` = #{bookName}, `author` = #{author}, `publisher` = #{publisher}, `price` = #{price}, `stock_num` = #{stockNum}, `sold_num` = #{soldNum}, `introduction` = #{introduction}, `cover_image` = #{coverImage}, `is_active` = #{isActive}, `book_type` = #{bookType}
         WHERE `book_id` = #{bookId}
     </update>
     
@@ -53,4 +53,16 @@
         DELETE FROM `book`
         WHERE `book_id` = #{bookId}
     </delete>
+    
+    <!-- 获取总图书数量 -->
+    <select id="getTotalBookCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `book`
+    </select>
+    
+    <!-- 按类别查询图书 -->
+    <select id="selectByType" resultType="com.bookstore.entity.Book" parameterType="java.lang.Integer">
+        SELECT `book_id` as bookId, `isbn` as ISBN, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `is_active` as isActive, `book_type` as bookType
+        FROM `book`
+        WHERE `is_active` = true AND `book_type` = #{bookType}
+    </select>
 </mapper>

@@ -77,7 +77,6 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("username", user.getUsername());
             
             // 处理记住我功能
-            // 设置记住我Cookie
             if ("true".equals(remember)) {
                 int maxAge = 30 * 24 * 60 * 60; // 30天
                 CookieUtil.setCookie(request, response, "remember_username", username, maxAge);

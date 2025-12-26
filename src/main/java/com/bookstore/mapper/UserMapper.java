@@ -10,4 +10,5 @@ public interface UserMapper {
     List<User> selectAll();
     void update(User user);
     void delete(Integer userId);
+    Integer getTotalUserCount();
 }

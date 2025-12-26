@@ -1,4 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.io.File" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -11,25 +15,49 @@
     <!-- 引入导航栏 -->
     <%@ include file="common/header.jsp" %>
 
-    <!-- 轮播图和用户信息 -->
+    <!-- 轮播图和时间日期组件 -->
     <div class="container carousel-container">
         <!-- 轮播图 -->
         <div class="carousel">
-            <div class="carousel-slide active">
-                <img src="https://via.placeholder.com/800x350/3498db/ffffff?text=图书促销活动" alt="图书促销">
-            </div>
-            <div class="carousel-slide">
-                <img src="https://via.placeholder.com/800x350/e74c3c/ffffff?text=新书推荐" alt="新书推荐">
-            </div>
-            <div class="carousel-slide">
-                <img src="https://via.placeholder.com/800x350/2ecc71/ffffff?text=阅读节活动" alt="阅读节活动">
-            </div>
+            <% 
+                // 动态读取banner图片
+                String bannerPath = application.getRealPath("/images/banner");
+                File bannerDir = new File(bannerPath);
+                ArrayList<String> bannerImages = new ArrayList<>();
+                
+                if (bannerDir.exists() && bannerDir.isDirectory()) {
+                    File[] files = bannerDir.listFiles();
+                    if (files != null) {
+                        for (File file : files) {
+                            if (file.isFile() && (file.getName().endsWith(".jpg") || file.getName().endsWith(".jpeg") || file.getName().endsWith(".png") || file.getName().endsWith(".gif") || file.getName().endsWith(".webp"))) {
+                                bannerImages.add("images/banner/" + file.getName());
+                            }
+                        }
+                    }
+                }
+                
+                // 如果没有图片，使用默认图片
+                if (bannerImages.isEmpty()) {
+                    bannerImages.add("images/banner/banner_1.webp");
+                }
+                
+                // 生成轮播图幻灯片
+                for (int i = 0; i < bannerImages.size(); i++) {
+                    String imagePath = bannerImages.get(i);
+                    String activeClass = (i == 0) ? "active" : "";
+            %>
+                <div class="carousel-slide <%= activeClass %>">
+                    <img src="<%= imagePath %>" alt="Banner <%= i + 1 %>">
+                </div>
+            <% } %>
 
             <!-- 轮播指示器 -->
             <div class="carousel-indicators">
-                <button class="carousel-indicator active" data-slide="0"></button>
-                <button class="carousel-indicator" data-slide="1"></button>
-                <button class="carousel-indicator" data-slide="2"></button>
+                <% for (int i = 0; i < bannerImages.size(); i++) {
+                    String activeClass = (i == 0) ? "active" : "";
+                %>
+                    <button class="carousel-indicator <%= activeClass %>" data-slide="<%= i %>"></button>
+                <% } %>
             </div>
 
             <!-- 轮播控制按钮 -->
@@ -39,18 +67,42 @@
             </div>
         </div>
 
-        <!-- 用户信息卡片 -->
-        <div class="user-info-card">
-            <h4>欢迎光临求知书店</h4>
-            <% if (session.getAttribute("user") == null) { %>
-                <p>请登录后享受更多服务</p>
-                <a href="user/login.jsp" class="btn btn-primary w-100 mb-2">登录</a>
-                <a href="user/register.jsp" class="btn btn-secondary w-100">注册</a>
-            <% } else { %>
-                <p>欢迎回来，<%= session.getAttribute("username") %></p>
-                <a href="user/profile.jsp" class="btn btn-primary w-100 mb-2">个人中心</a>
-                <a href="user/logout.jsp" class="btn btn-secondary w-100">退出登录</a>
-            <% } %>
+        <!-- 时间日期组件 -->
+        <div class="date-time-card">
+            <% 
+                // 获取当前日期时间
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+                SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
+                SimpleDateFormat weekFormat = new SimpleDateFormat("EEEE");
+                
+                int monthNum = calendar.get(Calendar.MONTH) + 1;
+                String day = dayFormat.format(calendar.getTime());
+                String week = weekFormat.format(calendar.getTime());
+                
+                // 月份数组
+                String[] chineseMonths = {"", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"};
+                String month = chineseMonths[monthNum] + "月";
+                
+                // 判断月份大小
+                int[] bigMonths = {1, 3, 5, 7, 8, 10, 12};
+                boolean isBigMonth = false;
+                for (int bigMonth : bigMonths) {
+                    if (bigMonth == monthNum) {
+                        isBigMonth = true;
+                        break;
+                    }
+                }
+                String monthSize = isBigMonth ? "大" : "小";
+            %>
+            <div class="date-info">
+                <div class="month">
+                    <span><%= month %></span>
+                    <span class="month-size"><%= monthSize %></span>
+                </div>
+                <div class="day"><%= day %></div>
+                <div class="week"><%= week %></div>
+            </div>
         </div>
     </div>
 
@@ -78,7 +130,7 @@
             </div>
             <div class="notice-item">
                 <a href="#">
-                    <span>网站系统升级维护通知（12月5日凌晨2-4点）</span>
+                    <span>网站系统升级维护通知（12月5凌晨2-4点）</span>
                     <span class="notice-date">2025-11-20</span>
                 </a>
             </div>
@@ -96,41 +148,33 @@
         </div>
         <div class="row">
             <!-- 秒杀图书卡片 -->
-            <div class="book-card">
-                <img src="https://via.placeholder.com/300x400/3498db/ffffff?text=Java编程思想" alt="Java编程思想">
-                <div class="book-card-body">
-                    <div class="book-title">Java编程思想</div>
-                    <div class="book-author">Bruce Eckel</div>
-                    <div class="book-price">¥59.90 <span class="original-price">¥129.00</span></div>
-                    <a href="book/detail.jsp?id=1" class="btn btn-danger w-100 mt-2">立即抢购</a>
-                </div>
+            <div class="book-item">
+                <img src="https://via.placeholder.com/300x400/3498db/ffffff?text=Java编程思想" alt="Java编程思想" class="book-cover">
+                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=1">Java编程思想</a>
+                    <p class="book-author">作者：Bruce Eckel</p>
+                    <p class="book-publisher">出版社：机械工业出版社</p>
+                    <p class="book-price">价格：¥59.90 <span class="original-price">¥129.00</span></p>
             </div>
-            <div class="book-card">
-                <img src="https://via.placeholder.com/300x400/e74c3c/ffffff?text=深入理解计算机系统" alt="深入理解计算机系统">
-                <div class="book-card-body">
-                    <div class="book-title">深入理解计算机系统</div>
-                    <div class="book-author">Randal E. Bryant</div>
-                    <div class="book-price">¥69.90 <span class="original-price">¥139.00</span></div>
-                    <a href="book/detail.jsp?id=2" class="btn btn-danger w-100 mt-2">立即抢购</a>
-                </div>
+            <div class="book-item">
+                <img src="https://via.placeholder.com/300x400/e74c3c/ffffff?text=深入理解计算机系统" alt="深入理解计算机系统" class="book-cover">
+                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=2">深入理解计算机系统</a>
+                    <p class="book-author">作者：Randal E. Bryant</p>
+                    <p class="book-publisher">出版社：机械工业出版社</p>
+                    <p class="book-price">价格：¥69.90 <span class="original-price">¥139.00</span></p>
             </div>
-            <div class="book-card">
-                <img src="https://via.placeholder.com/300x400/2ecc71/ffffff?text=Python编程" alt="Python编程：从入门到实践">
-                <div class="book-card-body">
-                    <div class="book-title">Python编程：从入门到实践</div>
-                    <div class="book-author">Eric Matthes</div>
-                    <div class="book-price">¥49.90 <span class="original-price">¥99.00</span></div>
-                    <a href="book/detail.jsp?id=3" class="btn btn-danger w-100 mt-2">立即抢购</a>
-                </div>
+            <div class="book-item">
+                <img src="https://via.placeholder.com/300x400/2ecc71/ffffff?text=Python编程" alt="Python编程：从入门到实践" class="book-cover">
+                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=3">Python编程：从入门到实践</a>
+                    <p class="book-author">作者：Eric Matthes</p>
+                    <p class="book-publisher">出版社：人民邮电出版社</p>
+                    <p class="book-price">价格：¥49.90 <span class="original-price">¥99.00</span></p>
             </div>
-            <div class="book-card">
-                <img src="https://via.placeholder.com/300x400/f39c12/ffffff?text=算法导论" alt="算法导论">
-                <div class="book-card-body">
-                    <div class="book-title">算法导论</div>
-                    <div class="book-author">Thomas H. Cormen</div>
-                    <div class="book-price">¥79.90 <span class="original-price">¥159.00</span></div>
-                    <a href="book/detail.jsp?id=4" class="btn btn-danger w-100 mt-2">立即抢购</a>
-                </div>
+            <div class="book-item">
+                <img src="https://via.placeholder.com/300x400/f39c12/ffffff?text=算法导论" alt="算法导论" class="book-cover">
+                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=4">算法导论</a>
+                    <p class="book-author">作者：Thomas H. Cormen</p>
+                    <p class="book-publisher">出版社：机械工业出版社</p>
+                    <p class="book-price">价格：¥79.90 <span class="original-price">¥159.00</span></p>
             </div>
         </div>
     </div>
@@ -140,41 +184,32 @@
         <h2 class="section-title">⭐ 精选图书</h2>
         <div class="row">
             <!-- 精选图书卡片 -->
-            <div class="book-card">
-                <img src="https://via.placeholder.com/300x400/9b59b6/ffffff?text=设计模式" alt="设计模式">
-                <div class="book-card-body">
-                    <div class="book-title">设计模式：可复用面向对象软件的基础</div>
-                    <div class="book-author">Erich Gamma</div>
-                    <div class="book-price">¥89.00</div>
-                    <a href="book/detail.jsp?id=5" class="btn btn-primary w-100 mt-2">查看详情</a>
-                </div>
+            <div class="book-item">
+                <img src="https://via.placeholder.com/300x400/9b59b6/ffffff?text=设计模式" alt="设计模式" class="book-cover">
+                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=5">设计模式：可复用面向对象软件的基础</a>
+                    <p class="book-author">作者：Erich Gamma</p>
+                    <p class="book-publisher">出版社：机械工业出版社</p>
+                    <p class="book-price">价格：¥89.00</p>
             </div>
-            <div class="book-card">
-                <img src="https://via.placeholder.com/300x400/1abc9c/ffffff?text=重构" alt="重构：改善既有代码的设计">
-                <div class="book-card-body">
-                    <div class="book-title">重构：改善既有代码的设计</div>
-                    <div class="book-author">Martin Fowler</div>
-                    <div class="book-price">¥79.00</div>
-                    <a href="book/detail.jsp?id=6" class="btn btn-primary w-100 mt-2">查看详情</a>
-                </div>
+            <div class="book-item">
+                <img src="https://via.placeholder.com/300x400/1abc9c/ffffff?text=重构" alt="重构：改善既有代码的设计" class="book-cover">
+                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=6">重构：改善既有代码的设计</a>
+                    <p class="book-author">作者：Martin Fowler</p>
+                    <p class="book-publisher">出版社：人民邮电出版社</p>
+                    <p class="book-price">价格：¥79.00</p>
             </div>
-            <div class="book-card">
-                <img src="https://via.placeholder.com/300x400/e67e22/ffffff?text=代码整洁之道" alt="代码整洁之道">
-                <div class="book-card-body">
-                    <div class="book-title">代码整洁之道</div>
-                    <div class="book-author">Robert C. Martin</div>
-                    <div class="book-price">¥69.00</div>
-                    <a href="book/detail.jsp?id=7" class="btn btn-primary w-100 mt-2">查看详情</a>
-                </div>
+            <div class="book-item">
+                <img src="https://via.placeholder.com/300x400/e67e22/ffffff?text=代码整洁之道" alt="代码整洁之道" class="book-cover">
+                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=7">代码整洁之道</a>
+                    <p class="book-publisher">出版社：人民邮电出版社</p>
+                    <p class="book-price">价格：¥69.00</p>
             </div>
-            <div class="book-card">
-                <img src="https://via.placeholder.com/300x400/34495e/ffffff?text=人月神话" alt="人月神话">
-                <div class="book-card-body">
-                    <div class="book-title">人月神话</div>
-                    <div class="book-author">Frederick P. Brooks Jr.</div>
-                    <div class="book-price">¥59.00</div>
-                    <a href="book/detail.jsp?id=8" class="btn btn-primary w-100 mt-2">查看详情</a>
-                </div>
+            <div class="book-item">
+                <img src="https://via.placeholder.com/300x400/34495e/ffffff?text=人月神话" alt="人月神话" class="book-cover">
+                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=8">人月神话</a>
+                    <p class="book-author">作者：Frederick P. Brooks Jr.</p>
+                    <p class="book-publisher">出版社：清华大学出版社</p>
+                    <p class="book-price">价格：¥59.00</p>
             </div>
         </div>
     </div>
@@ -184,41 +219,33 @@
         <h2 class="section-title">📖 新书推荐</h2>
         <div class="row">
             <!-- 新书推荐卡片 -->
-            <div class="book-card">
-                <img src="https://via.placeholder.com/300x400/e74c3c/ffffff?text=AI新时代" alt="AI新时代">
-                <div class="book-card-body">
-                    <div class="book-title">AI新时代：人工智能的商业应用</div>
-                    <div class="book-author">吴军</div>
-                    <div class="book-price">¥99.00</div>
-                    <a href="book/detail.jsp?id=9" class="btn btn-primary w-100 mt-2">查看详情</a>
-                </div>
+            <div class="book-item">
+                <img src="https://via.placeholder.com/300x400/e74c3c/ffffff?text=AI新时代" alt="AI新时代" class="book-cover">
+                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=9">AI新时代：人工智能的商业应用</a>
+                    <p class="book-author">作者：吴军</p>
+                    <p class="book-publisher">出版社：中信出版社</p>
+                    <p class="book-price">价格：¥99.00</p>
             </div>
-            <div class="book-card">
-                <img src="https://via.placeholder.com/300x400/3498db/ffffff?text=数据分析实战" alt="数据分析实战">
-                <div class="book-card-body">
-                    <div class="book-title">数据分析实战：使用Python进行数据挖掘</div>
-                    <div class="book-author">李航</div>
-                    <div class="book-price">¥89.00</div>
-                    <a href="book/detail.jsp?id=10" class="btn btn-primary w-100 mt-2">查看详情</a>
-                </div>
+            <div class="book-item">
+                <img src="https://via.placeholder.com/300x400/3498db/ffffff?text=数据分析实战" alt="数据分析实战" class="book-cover">
+                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=10">数据分析实战：使用Python进行数据挖掘</a>
+                    <p class="book-author">作者：李航</p>
+                    <p class="book-publisher">出版社：机械工业出版社</p>
+                    <p class="book-price">价格：¥89.00</p>
             </div>
-            <div class="book-card">
-                <img src="https://via.placeholder.com/300x400/2ecc71/ffffff?text=云计算架构" alt="云计算架构">
-                <div class="book-card-body">
-                    <div class="book-title">云计算架构设计：原理与实践</div>
-                    <div class="book-author">王珊</div>
-                    <div class="book-price">¥109.00</div>
-                    <a href="book/detail.jsp?id=11" class="btn btn-primary w-100 mt-2">查看详情</a>
-                </div>
+            <div class="book-item">
+                <img src="https://via.placeholder.com/300x400/2ecc71/ffffff?text=云计算架构" alt="云计算架构" class="book-cover">
+                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=11">云计算架构设计：原理与实践</a>
+                    <p class="book-author">作者：王珊</p>
+                    <p class="book-publisher">出版社：清华大学出版社</p>
+                    <p class="book-price">价格：¥109.00</p>
             </div>
-            <div class="book-card">
-                <img src="https://via.placeholder.com/300x400/9b59b6/ffffff?text=网络安全技术" alt="网络安全技术">
-                <div class="book-card-body">
-                    <div class="book-title">网络安全技术与实践</div>
-                    <div class="book-author">张焕国</div>
-                    <div class="book-price">¥99.00</div>
-                    <a href="book/detail.jsp?id=12" class="btn btn-primary w-100 mt-2">查看详情</a>
-                </div>
+            <div class="book-item">
+                <img src="https://via.placeholder.com/300x400/9b59b6/ffffff?text=网络安全技术" alt="网络安全技术" class="book-cover">
+                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=12">网络安全技术与实践</a>
+                    <p class="book-author">作者：张焕国</p>
+                    <p class="book-publisher">出版社：武汉大学出版社</p>
+                    <p class="book-price">价格：¥99.00</p>
             </div>
         </div>
     </div>

@@ -18,56 +18,67 @@ D:\develop\JavaIDEA\Bookstore
 │   │   │           │   └── Result.java        # 统一返回结果类
 │   │   │           ├── controller/      # 控制器层
 │   │   │           │   ├── admin/       # 管理员端控制器
-│   │   │           │   │   ├── AdminBookServlet.java     # 图书管理控制器
-│   │   │           │   │   ├── AdminOrderServlet.java    # 订单管理控制器
-│   │   │           │   │   ├── AdminUserServlet.java     # 用户管理控制器
-│   │   │           │   │   └── AdminLoginServlet.java    # 管理员登录控制器
-│   │   │           │   └── user/    # 用户端控制器
+│   │   │           │   │   ├── AdminBookServlet.java      # 图书管理控制器
+│   │   │           │   │   ├── AdminCommentServlet.java   # 评论管理控制器
+│   │   │           │   │   ├── AdminDiscountServlet.java  # 折扣管理控制器
+│   │   │           │   │   ├── AdminLoginServlet.java     # 管理员登录控制器
+│   │   │           │   │   ├── AdminOrderServlet.java     # 订单管理控制器
+│   │   │           │   │   ├── AdminUserServlet.java      # 用户管理控制器
+│   │   │           │   │   └── AdminDashboardServlet.java # 管理员首页控制器
+│   │   │           │   └── user/        # 用户端控制器
 │   │   │           │       ├── BookServlet.java          # 图书浏览控制器
 │   │   │           │       ├── CartServlet.java          # 购物车控制器
-│   │   │           │       ├── OrderServlet.java         # 订单控制器
-│   │   │           │       ├── UserServlet.java          # 用户信息控制器
+│   │   │           │       ├── CommentServlet.java       # 评论控制器
 │   │   │           │       ├── LoginServlet.java         # 用户登录控制器
 │   │   │           │       ├── LogoutServlet.java        # 用户注销控制器
-│   │   │           │       └── RegisterServlet.java      # 用户注册控制器
+│   │   │           │       ├── OrderServlet.java         # 订单控制器
+│   │   │           │       ├── RegisterServlet.java      # 用户注册控制器
+│   │   │           │       └── UserServlet.java          # 用户信息控制器
 │   │   │           ├── entity/          # 实体类
-│   │   │           │   ├── Book.java
-│   │   │           │   ├── BookImage.java
-│   │   │           │   ├── Comment.java
-│   │   │           │   ├── Discount.java
-│   │   │           │   ├── Order.java
-│   │   │           │   ├── OrderItem.java
-│   │   │           │   ├── ShoppingCart.java
-│   │   │           │   └── User.java
+│   │   │           │   ├── Book.java                    # 图书实体
+│   │   │           │   ├── BookImage.java               # 图书图片实体
+│   │   │           │   ├── Comment.java                 # 评论实体
+│   │   │           │   ├── Discount.java                # 折扣实体
+│   │   │           │   ├── Order.java                   # 订单实体
+│   │   │           │   ├── OrderItem.java               # 订单项实体
+│   │   │           │   ├── ShoppingCart.java            # 购物车实体
+│   │   │           │   └── User.java                    # 用户实体
 │   │   │           ├── filter/          # 过滤器
-│   │   │           │   ├── AdminLoginFilter.java    # 管理员登录过滤器
-│   │   │           │   └── UserLoginFilter.java     # 用户登录过滤器
+│   │   │           │   ├── AdminLoginFilter.java        # 管理员登录过滤器
+│   │   │           │   └── UserLoginFilter.java         # 用户登录过滤器
 │   │   │           ├── mapper/          # 数据访问层
-│   │   │           │   ├── BookImageMapper.java
-│   │   │           │   ├── BookMapper.java
-│   │   │           │   ├── CommentMapper.java
-│   │   │           │   ├── DiscountMapper.java
-│   │   │           │   ├── OrderItemMapper.java
-│   │   │           │   ├── OrderMapper.java
-│   │   │           │   ├── ShoppingCartMapper.java
-│   │   │           │   └── UserMapper.java
+│   │   │           │   ├── BookImageMapper.java         # 图书图片Mapper
+│   │   │           │   ├── BookMapper.java              # 图书Mapper
+│   │   │           │   ├── CommentMapper.java           # 评论Mapper
+│   │   │           │   ├── DiscountMapper.java          # 折扣Mapper
+│   │   │           │   ├── OrderItemMapper.java         # 订单项Mapper
+│   │   │           │   ├── OrderMapper.java             # 订单Mapper
+│   │   │           │   ├── ShoppingCartMapper.java      # 购物车Mapper
+│   │   │           │   └── UserMapper.java              # 用户Mapper
 │   │   │           ├── service/         # 业务逻辑层
-│   │   │           │   ├── AdminService.java        # 管理员服务接口
-│   │   │           │   ├── AdminServiceImpl.java    # 管理员服务实现
-│   │   │           │   ├── BookService.java         # 图书服务接口
-│   │   │           │   ├── BookServiceImpl.java     # 图书服务实现
-│   │   │           │   ├── CartService.java         # 购物车服务接口
-│   │   │           │   ├── CartServiceImpl.java     # 购物车服务实现
-│   │   │           │   ├── OrderService.java        # 订单服务接口
-│   │   │           │   ├── OrderServiceImpl.java    # 订单服务实现
-│   │   │           │   ├── UserService.java         # 用户服务接口
-│   │   │           │   └── UserServiceImpl.java     # 用户服务实现
+│   │   │           │   ├── AdminService.java            # 管理员服务接口
+│   │   │           │   ├── BookService.java             # 图书服务接口
+│   │   │           │   ├── CartService.java             # 购物车服务接口
+│   │   │           │   ├── CommentService.java          # 评论服务接口
+│   │   │           │   ├── DiscountService.java         # 折扣服务接口
+│   │   │           │   ├── OrderService.java            # 订单服务接口
+│   │   │           │   ├── UserService.java             # 用户服务接口
+│   │   │           │   └── impl/        # 服务实现
+│   │   │           │       ├── AdminServiceImpl.java     # 管理员服务实现
+│   │   │           │       ├── BookServiceImpl.java      # 图书服务实现
+│   │   │           │       ├── CartServiceImpl.java      # 购物车服务实现
+│   │   │           │       ├── CommentServiceImpl.java   # 评论服务实现
+│   │   │           │       ├── DiscountServiceImpl.java  # 折扣服务实现
+│   │   │           │       ├── OrderServiceImpl.java     # 订单服务实现
+│   │   │           │       └── UserServiceImpl.java      # 用户服务实现
 │   │   │           └── tool/            # 工具类
-│   │   │               ├── DruidDataSourceFactory.java
-│   │   │               └── MyBatisUtil.java
-│   │   ├── resources/                   # 资源文件
-│   │   │   ├── db.properties            # 数据库配置
-│   │   │   ├── mapper/                  # MyBatis映射文件
+│   │   │               ├── CookieUtil.java              # Cookie工具类
+│   │   │               ├── DruidDataSourceFactory.java  # Druid数据源工厂
+│   │   │               ├── MyBatisUtil.java             # MyBatis工具类
+│   │   │               └── RedisUtil.java               # Redis工具类
+│   │   ├── resources/                  # 资源文件
+│   │   │   ├── db.properties           # 数据库配置
+│   │   │   ├── mapper/                 # MyBatis映射文件
 │   │   │   │   ├── BookImageMapper.xml
 │   │   │   │   ├── BookMapper.xml
 │   │   │   │   ├── CommentMapper.xml
@@ -76,18 +87,25 @@ D:\develop\JavaIDEA\Bookstore
 │   │   │   │   ├── OrderMapper.xml
 │   │   │   │   ├── ShoppingCartMapper.xml
 │   │   │   │   └── UserMapper.xml
-│   │   │   └── mybatis-config.xml       # MyBatis配置
-│   │   └── webapp/                      # Web资源
-│   │       ├── WEB-INF/
-│   │       │   ├── web.xml              # Web应用配置
-│   │       │   └── lib/                 # 依赖库(由Maven自动管理)
+│   │   │   ├── mybatis-config.xml       # MyBatis配置
+│   │   │   └── redis.properties         # Redis配置
+│   │   └── webapp/                      # Web应用
+│   │       ├── WEB-INF/                 # Web应用配置
+│   │       │   └── web.xml              # Web应用部署描述符
 │   │       ├── admin/                   # 管理员端页面
 │   │       │   ├── index.jsp            # 管理员首页
 │   │       │   ├── login.jsp            # 管理员登录页
+│   │       │   ├── profile.jsp          # 管理员个人中心
 │   │       │   ├── book/                # 图书管理页面
 │   │       │   │   ├── list.jsp         # 图书列表
 │   │       │   │   ├── add.jsp          # 添加图书
 │   │       │   │   └── edit.jsp         # 编辑图书
+│   │       │   ├── comment/             # 评论管理页面
+│   │       │   │   └── list.jsp         # 评论列表
+│   │       │   ├── discount/            # 折扣管理页面
+│   │       │   │   ├── list.jsp         # 折扣列表
+│   │       │   │   ├── add.jsp          # 添加折扣
+│   │       │   │   └── edit.jsp         # 编辑折扣
 │   │       │   ├── order/               # 订单管理页面
 │   │       │   │   ├── list.jsp         # 订单列表
 │   │       │   │   └── detail.jsp       # 订单详情
@@ -102,28 +120,20 @@ D:\develop\JavaIDEA\Bookstore
 │   │       │   ├── header.jsp           # 页面头部
 │   │       │   └── footer.jsp           # 页面底部
 │   │       ├── css/                     # 样式文件
-│   │       │   └── style.css
+│   │       │   └── style.css            # 主样式文件
 │   │       ├── images/                  # 图片资源
 │   │       │   ├── banner/              # 轮播图
-│   │       │   ├── book/                # 图书图片
-│   │       │   └── icons/               # 图标
-│   │       ├── index.jsp                # 用户端首页
+│   │       │   └── book/                # 图书封面图片
+│   │       ├── index.jsp                # 网站首页
 │   │       ├── order/                   # 用户端订单页面
 │   │       │   ├── list.jsp             # 订单列表
 │   │       │   └── detail.jsp           # 订单详情
-│   │       └── user/                    # 用户端用户页面
+│   │       └── user/                    # 用户端页面
 │   │           ├── login.jsp            # 用户登录页
-│   │           ├── register.jsp         # 用户注册页
-│   │           └── profile.jsp          # 用户个人信息页
+│   │           ├── logout.jsp           # 用户注销页
+│   │           ├── profile.jsp          # 用户个人中心
+│   │           └── register.jsp         # 用户注册页
 │   └── test/                            # 测试代码
-│       ├── java/
-│       │   └── com/
-│       │       └── bookstore/
-│       │           ├── controller/
-│       │           ├── service/
-│       │           └── mapper/
-│       └── resources/
-└── target/                              # 编译输出目录（自动生成）
-    ├── Bookstore-1.0-SNAPSHOT/
-    ├── classes/
-    └── generated-sources/
+│       ├── java/                        # 测试Java代码
+│       └── resources/                   # 测试资源文件
+└── target/                              # 项目构建输出目录

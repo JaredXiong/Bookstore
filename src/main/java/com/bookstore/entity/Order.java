@@ -12,9 +12,9 @@ import java.util.Date;
 @AllArgsConstructor//有参构造
 public class Order {
     private String orderId;        // 订单编号
-    private Integer userId;        // 下单用户ID
+    private Integer userId;        // 下单用户 ID
     private Double totalAmount;    // 订单总金额
     private String deliveryAddress;// 送货地址
-    private String orderStatus;    // 订单状态：待支付、已支付、已发货、已完成、已取消
+    private String orderStatus;    // 订单状态
     private Date createTime;       // 订单创建时间
 }

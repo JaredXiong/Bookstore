@@ -35,4 +35,9 @@
         DELETE FROM `user`
         WHERE `user_id` = #{userId}
     </delete>
+    
+    <!-- 获取总用户数量 -->
+    <select id="getTotalUserCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `user`
+    </select>
 </mapper>

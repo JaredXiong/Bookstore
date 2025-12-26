@@ -31,6 +31,11 @@
         ORDER BY `start_time` ASC
     </select>
 
+    <!-- 获取活跃折扣数量 -->
+    <select id="getActiveDiscountCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `discount` WHERE `start_time` &lt;= NOW() AND `end_time` &gt;= NOW()
+    </select>
+
     <update id="update" parameterType="com.bookstore.entity.Discount">
         UPDATE `discount`
         SET `discount_type` = #{discountType},

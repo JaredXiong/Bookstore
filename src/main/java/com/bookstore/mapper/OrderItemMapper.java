@@ -8,4 +8,5 @@ public interface OrderItemMapper {
     OrderItem selectById(Integer itemId);
     List<OrderItem> selectByOrderId(String orderId);
     void deleteByOrderId(String orderId);
+    void delete(Integer itemId);
 }

@@ -4,18 +4,18 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bookstore.mapper.BookImageMapper">
     <insert id="insert" parameterType="com.bookstore.entity.BookImage">
-        INSERT INTO `book_image` (`book_id`, `image_url`, `is_main`)
-        VALUES (#{bookId}, #{imageUrl}, #{isMain})
+        INSERT INTO `book_image` (`book_id`, `image_url`, `sort_order`, `description`)
+        VALUES (#{bookId}, #{imageUrl}, #{sortOrder}, #{description})
     </insert>
 
     <select id="selectById" parameterType="java.lang.Integer" resultType="com.bookstore.entity.BookImage">
-        SELECT `image_id`, `book_id`, `image_url`, `is_main`
+        SELECT `image_id`, `book_id`, `image_url`, `sort_order` as sortOrder, `description`
         FROM `book_image`
         WHERE `image_id` = #{imageId}
     </select>
 
     <select id="selectByBookId" parameterType="java.lang.Integer" resultType="com.bookstore.entity.BookImage">
-        SELECT `image_id`, `book_id`, `image_url`, `is_main`
+        SELECT `image_id`, `book_id`, `image_url`, `sort_order` as sortOrder, `description`
         FROM `book_image`
         WHERE `book_id` = #{bookId}
     </select>
@@ -24,7 +24,8 @@
         UPDATE `book_image`
         SET `book_id` = #{bookId},
             `image_url` = #{imageUrl},
-            `is_main` = #{isMain}
+            `sort_order` = #{sortOrder},
+            `description` = #{description}
         WHERE `image_id` = #{imageId}
     </update>
 

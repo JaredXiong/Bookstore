@@ -2,12 +2,14 @@
 <!-- 导航栏 -->
 <nav class="navbar">
     <div class="container navbar-container">
-        <a href="index.jsp" class="navbar-logo">📚 求知书店</a>
+        <a href="${pageContext.request.contextPath}/index.jsp" class="navbar-logo">📚 求知书店</a>
         <ul class="navbar-menu">
-            <li><a href="index.jsp">首页</a></li>
-            <li><a href="book/list.jsp">图书分类</a></li>
+            <li><a href="${pageContext.request.contextPath}/index.jsp">首页</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/book?action=list">图书分类</a></li>
             <li><a href="#">公告栏</a></li>
-            <li><a href="user/profile.jsp">个人中心</a></li>
+            <li><a href="${pageContext.request.contextPath}/cart/index.jsp" class="cart-link">
+                购物车 <span class="cart-count">0</span>
+            </a></li>
         </ul>
 
         <!-- 添加搜索栏 -->
@@ -20,17 +22,22 @@
             </form>
         </div>
 
+        <!-- 在用户已登录的情况下显示"我的"下拉菜单 -->
         <div class="navbar-right">
-            <%-- 判断用户是否登录 --%>
             <% if (session.getAttribute("user") == null) { %>
-            <a href="user/login.jsp" class="btn btn-primary">登录</a>
-            <a href="user/register.jsp" class="btn btn-secondary">注册</a>
+                <a href="${pageContext.request.contextPath}/user/login.jsp" class="btn btn-primary">登录</a>
+                <a href="${pageContext.request.contextPath}/user/register.jsp" class="btn btn-secondary">注册</a>
             <% } else { %>
-            <div class="user-info">
-                <span>欢迎, <%= session.getAttribute("username") %></span>
-                <a href="user/profile.jsp" class="btn btn-primary">个人中心</a>
-                <a href="${pageContext.request.contextPath}/user/logout" class="btn btn-secondary">退出</a>
-            </div>
+                <span class="welcome-text">欢迎您, <%= session.getAttribute("username") %></span>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">我的 ▼</a>
+                    <div class="dropdown-menu">
+                        <a href="user/profile.jsp" class="dropdown-item">个人中心</a>
+                        <a href="order/list.jsp" class="dropdown-item">订单信息</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="${pageContext.request.contextPath}/user/logout" class="dropdown-item logout-item">退出</a>
+                    </div>
+                </div>
             <% } %>
         </div>
     </div>

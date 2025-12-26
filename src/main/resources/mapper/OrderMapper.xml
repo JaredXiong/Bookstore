@@ -56,4 +56,9 @@
         FROM `order`
         WHERE `order_status` = '待支付' AND `create_time` &lt; DATE_SUB(NOW(), INTERVAL 30 MINUTE)
     </select>
+    
+    <!-- 获取待处理订单数量 -->
+    <select id="getPendingOrderCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `order` WHERE `order_status` = '待支付' OR `order_status` = '待发货'
+    </select>
 </mapper>

@@ -13,4 +13,5 @@ public interface OrderMapper {
     void updateStatus(String orderId, String status);
     void delete(String orderId);
     List<Order> selectExpiredUnpaid();
+    Integer getPendingOrderCount();
 }
