@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.session.SqlSession;
 import redis.clients.jedis.Jedis;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookServiceImpl implements BookService {
@@ -27,11 +28,18 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> searchBooks(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return new ArrayList<>();
+        }
+        
+        // 对关键词进行trim处理，确保没有前导或尾随空格
+        String trimmedKeyword = keyword.trim();
+        
         SqlSession sqlSession = null;
         try {
             sqlSession = MyBatisUtil.getSqlSession();
             BookMapper bookMapper = sqlSession.getMapper(BookMapper.class);
-            return bookMapper.searchBooks(keyword);
+            return bookMapper.searchBooks(trimmedKeyword); // 传递trim后的关键词
         } finally {
             MyBatisUtil.closeSqlSession(sqlSession);
         }

@@ -52,4 +52,11 @@ public interface OrderService {
      * @return 订单列表
      */
     List<Order> getAllOrders();
+    
+    /**
+     * 检查用户是否有未完成订单
+     * @param userId 用户ID
+     * @return true表示有未完成订单，false表示没有
+     */
+    boolean hasUncompletedOrders(Integer userId);
 }

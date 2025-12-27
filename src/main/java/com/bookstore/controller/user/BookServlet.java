@@ -14,7 +14,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "BookServlet", urlPatterns = "/user/book")
 public class BookServlet extends HttpServlet {
@@ -31,26 +34,79 @@ public class BookServlet extends HttpServlet {
             case "search":
                 searchBooks(request, response);
                 break;
+            case "searchAuto": // 添加实时搜索处理
+                searchAuto(request, response);
+                break;
             case "byType":
-                getBooksByType(request, response); // 添加按类别筛选的处理
+                getBooksByType(request, response);
                 break;
             case "detail":
                 showBookDetail(request, response);
                 break;
             case "random":
-                getRandomBooks(request, response); // 处理随机图书请求（用于图书秒杀）
+                getRandomBooks(request, response);
                 break;
             case "topRated":
-                getTopRatedBooks(request, response); // 处理评分最高图书请求（用于精选图书）
+                getTopRatedBooks(request, response);
                 break;
             case "newest":
-                getNewestBooks(request, response); // 处理最新图书请求（用于新书推荐）
+                getNewestBooks(request, response);
                 break;
             case "list":
             default:
                 listBooks(request, response);
                 break;
         }
+    }
+
+    // 实时搜索方法
+    private void searchAuto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String keyword = request.getParameter("keyword");
+        if (keyword == null || keyword.trim().isEmpty()) {
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("[]");
+            return;
+        }
+
+        List<Book> books = bookService.searchBooks(keyword);
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        for (Book book : books) {
+            Map<String, Object> bookMap = new HashMap<>();
+            bookMap.put("bookId", book.getBookId());
+            bookMap.put("bookName", book.getBookName());
+            bookMap.put("author", book.getAuthor());
+            bookMap.put("price", book.getPrice());
+            
+            // 确定匹配的字段类型
+            List<String> matchFields = new ArrayList<>();
+            keyword = keyword.toLowerCase();
+            
+            if (book.getBookName() != null && book.getBookName().toLowerCase().contains(keyword)) {
+                matchFields.add("书名");
+            }
+            if (book.getAuthor() != null && book.getAuthor().toLowerCase().contains(keyword)) {
+                matchFields.add("作者");
+            }
+            if (book.getISBN() != null && book.getISBN().toLowerCase().contains(keyword)) {
+                matchFields.add("ISBN");
+            }
+            if (book.getPublisher() != null && book.getPublisher().toLowerCase().contains(keyword)) {
+                matchFields.add("出版社");
+            }
+            if (book.getIntroduction() != null && book.getIntroduction().toLowerCase().contains(keyword)) {
+                matchFields.add("简介");
+            }
+            
+            bookMap.put("matchFields", matchFields);
+            result.add(bookMap);
+        }
+
+        // 返回JSON数据
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(new com.fasterxml.jackson.databind.ObjectMapper().writeValueAsString(result));
     }
 
     private void searchBooks(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -109,7 +165,6 @@ public class BookServlet extends HttpServlet {
             // 设置request属性
             request.setAttribute("book", book);
             request.setAttribute("bookImages", bookImages);
-            System.out.println("bookImages: " + bookImages);
             // 转发到图书详情页
             request.getRequestDispatcher("/book/detail.jsp").forward(request, response);
         } catch (NumberFormatException e) {
@@ -123,7 +178,6 @@ public class BookServlet extends HttpServlet {
         String limitParam = request.getParameter("limit");
         Integer limit = (limitParam != null && !limitParam.isEmpty()) ? Integer.parseInt(limitParam) : 5;
         List<Book> randomBooks = bookService.getRandomBooks(limit);
-        System.out.println("randomBooks: " + randomBooks);
         request.setAttribute("randomBooks", randomBooks);
         // 直接返回JSON数据，用于AJAX请求
         response.setContentType("application/json");
@@ -136,7 +190,6 @@ public class BookServlet extends HttpServlet {
         String limitParam = request.getParameter("limit");
         Integer limit = (limitParam != null && !limitParam.isEmpty()) ? Integer.parseInt(limitParam) : 5;
         List<Book> topRatedBooks = bookService.getTopRatedBooks(limit);
-        System.out.println("topRatedBooks: " + topRatedBooks);
         request.setAttribute("topRatedBooks", topRatedBooks);
         // 直接返回JSON数据，用于AJAX请求
         response.setContentType("application/json");

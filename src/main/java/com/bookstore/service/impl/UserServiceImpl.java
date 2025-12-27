@@ -52,4 +52,32 @@ public class UserServiceImpl implements UserService {
             return userMapper.selectByUsername(username);
         }
     }
+
+    @Override
+    public User findById(Integer userId) {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.selectById(userId);
+        }
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            userMapper.update(user);
+            sqlSession.commit();
+            return true;
+        }
+    }
+
+    @Override
+    public boolean deleteUser(Integer userId) {
+        try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            userMapper.delete(userId);
+            sqlSession.commit();
+            return true;
+        }
+    }
 }

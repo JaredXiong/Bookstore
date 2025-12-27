@@ -24,6 +24,11 @@ public interface BookMapper {
      */
     List<Book> selectAll();
     /**
+     * 查询所有上架的图书
+     * @return 上架图书列表
+     */
+    List<Book> selectActive();
+    /**
      * 搜索图书
      * @param keyword 搜索关键词
      * @return 图书列表

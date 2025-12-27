@@ -1,7 +1,7 @@
 package com.bookstore.service.impl;
 
-import com.bookstore.entity.*;
-import com.bookstore.mapper.*;
+import com.bookstore.entity.Order;
+import com.bookstore.mapper.OrderMapper;
 import com.bookstore.service.OrderService;
 import com.bookstore.tool.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -104,6 +104,27 @@ public class OrderServiceImpl implements OrderService {
             sqlSession = MyBatisUtil.getSqlSession();
             OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
             return orderMapper.selectAll();
+        } finally {
+            MyBatisUtil.closeSqlSession(sqlSession);
+        }
+    }
+    
+    @Override
+    public boolean hasUncompletedOrders(Integer userId) {
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MyBatisUtil.getSqlSession();
+            OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+            List<Order> orders = orderMapper.selectByUserId(userId);
+            
+            // 检查是否有未完成订单（待支付、待发货、待收货、待评价、待退款）
+            for (Order order : orders) {
+                String status = order.getOrderStatus();
+                if (!"已完成".equals(status) && !"已取消".equals(status)) {
+                    return true;
+                }
+            }
+            return false;
         } finally {
             MyBatisUtil.closeSqlSession(sqlSession);
         }

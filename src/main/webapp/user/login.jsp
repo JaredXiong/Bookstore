@@ -58,6 +58,14 @@
                 out.println("<div style='color: red; margin-bottom: 15px;'>" + request.getAttribute("errorMsg") + "</div>");
             } %>
             
+            <!-- 显示成功消息 -->
+            <% 
+                String message = request.getParameter("message");
+                if (message != null && !message.isEmpty()) {
+                    out.println("<div style='color: green; margin-bottom: 15px;'>" + message + "</div>");
+                }
+            %>
+            
             <form action="${pageContext.request.contextPath}/user/login" method="post">
                 <div class="form-group">
                     <label for="username">用户名</label>

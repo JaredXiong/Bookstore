@@ -11,18 +11,28 @@
 <%@ include file="../common/header.jsp" %>
 
 <div class="container">
-    <h2>图书分类</h2>
+    <!-- 显示搜索结果信息 -->
+    <%
+        String keyword = (String) request.getAttribute("keyword");
+        if (keyword != null && !keyword.isEmpty()) {
+    %>
+        <div class="search-result-info">
+            <h3>搜索 "<%= keyword %>" 的结果</h3>
+        </div>
+    <%
+        }
+    %>
 
     <!-- 类别筛选 -->
     <div class="category-filter">
         <h3>图书分类</h3>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/user/book?action=list" ${requestScope.selectedType == null ? 'class="active"' : ''}>全部</a></li>
-            <li><a href="${pageContext.request.contextPath}/user/book?action=byType&type=1" ${requestScope.selectedType == 1 ? 'class="active"' : ''}>文学</a></li>
-            <li><a href="${pageContext.request.contextPath}/user/book?action=byType&type=2" ${requestScope.selectedType == 2 ? 'class="active"' : ''}>社科</a></li>
-            <li><a href="${pageContext.request.contextPath}/user/book?action=byType&type=3" ${requestScope.selectedType == 3 ? 'class="active"' : ''}>少儿</a></li>
-            <li><a href="${pageContext.request.contextPath}/user/book?action=byType&type=4" ${requestScope.selectedType == 4 ? 'class="active"' : ''}>技术</a></li>
-            <li><a href="${pageContext.request.contextPath}/user/book?action=byType&type=5" ${requestScope.selectedType == 5 ? 'class="active"' : ''}>其他</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/book?action=list" ${requestScope.selectedType == null && keyword == null ? 'class="active"' : ''}>全部</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/book?action=byType&type=1" ${requestScope.selectedType == 1 && keyword == null ? 'class="active"' : ''}>文学</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/book?action=byType&type=2" ${requestScope.selectedType == 2 && keyword == null ? 'class="active"' : ''}>社科</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/book?action=byType&type=3" ${requestScope.selectedType == 3 && keyword == null ? 'class="active"' : ''}>少儿</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/book?action=byType&type=4" ${requestScope.selectedType == 4 && keyword == null ? 'class="active"' : ''}>技术</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/book?action=byType&type=5" ${requestScope.selectedType == 5 && keyword == null ? 'class="active"' : ''}>其他</a></li>
         </ul>
     </div>
 
@@ -44,9 +54,15 @@
         <%
                 }
             } else {
+                if (keyword != null && !keyword.isEmpty()) {
+        %>
+        <p class="no-books">没有找到与 "<%= keyword %>" 相关的图书</p>
+        <%
+                } else {
         %>
         <p class="no-books">暂无图书</p>
         <%
+                }
             }
         %>
     </div>
