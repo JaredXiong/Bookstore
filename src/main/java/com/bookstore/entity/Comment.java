@@ -14,7 +14,7 @@ public class Comment {
     private Integer commentId; // 评论ID
     private Integer userId;    // 评论者用户ID
     private Integer bookId;    // 被评论图书ID
-    private Integer orderId;   // 关联的订单ID
+    private String orderId;   // 关联的订单ID
     private String content;    // 评论正文
     private Date createTime;   // 评论时间
     private Integer rating;    // 用户评分（1~5分制）

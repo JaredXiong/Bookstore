@@ -9,4 +9,7 @@ public interface BookService {
     List<Book> getBooksByType(Integer bookType); // 按类别获取图书
     Book getBookById(Integer bookId);
     void clearBookCache();
+    List<Book> getRandomBooks(Integer limit); // 获取随机图书（用于图书秒杀）
+    List<Book> getTopRatedBooks(Integer limit); // 获取评分最高的图书（用于精选图书）
+    List<Book> getNewestBooks(Integer limit); // 获取最新图书（用于新书推荐）
 }

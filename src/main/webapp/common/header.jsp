@@ -1,3 +1,8 @@
+<%@ page import="com.bookstore.entity.User" %>
+<%@ page import="com.bookstore.entity.ShoppingCart" %>
+<%@ page import="com.bookstore.service.CartService" %>
+<%@ page import="com.bookstore.service.impl.CartServiceImpl" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!-- 导航栏 -->
 <nav class="navbar">
@@ -7,8 +12,18 @@
             <li><a href="${pageContext.request.contextPath}/index.jsp">首页</a></li>
             <li><a href="${pageContext.request.contextPath}/user/book?action=list">图书分类</a></li>
             <li><a href="#">公告栏</a></li>
-            <li><a href="${pageContext.request.contextPath}/cart/index.jsp" class="cart-link">
-                购物车 <span class="cart-count">0</span>
+            <%
+            // 获取购物车数量
+            User user = (User) session.getAttribute("user");
+            int cartCount = 0;
+            if (user != null) {
+                CartService cartService = new CartServiceImpl();
+                List<ShoppingCart> cartItems = cartService.getCartItemsByUserId(user.getUserId());
+                cartCount = cartItems.size();
+            }
+            %>
+            <li><a href="${pageContext.request.contextPath}/user/cart?action=viewCart" class="cart-link">
+                购物车 <span class="cart-count"><%= cartCount %></span>
             </a></li>
         </ul>
 

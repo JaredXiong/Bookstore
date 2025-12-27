@@ -3,4 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/user/cart</url-pattern>
+        <init-param>
+            <param-name>defaultAction</param-name>
+            <param-value>viewCart</param-value>
+        </init-param>
+    </servlet-mapping>
 </web-app>

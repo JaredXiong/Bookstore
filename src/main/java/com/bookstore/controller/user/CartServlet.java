@@ -39,7 +39,7 @@ public class CartServlet extends BaseServlet {
             Book book = bookService.getBookById(bookId);
             if (book == null) {
                 request.setAttribute("errorMsg", "图书不存在");
-                request.getRequestDispatcher("/cart/index.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/user/cart?action=viewCart");
                 return;
             }
             
@@ -53,14 +53,14 @@ public class CartServlet extends BaseServlet {
             // 添加到购物车
             boolean success = cartService.addToCart(cart);
             if (success) {
-                response.sendRedirect(request.getContextPath() + "/cart/index.jsp");
+                response.sendRedirect(request.getContextPath() + "/user/cart?action=viewCart");
             } else {
-                request.setAttribute("errorMsg", "添加购物车失败，可能库存不足");
-                request.getRequestDispatcher("/cart/index.jsp").forward(request, response);
+                request.setAttribute("errorMsg", "添加购物车失败，库存不足");
+                response.sendRedirect(request.getContextPath() + "/user/cart?action=viewCart");
             }
         } catch (NumberFormatException e) {
             request.setAttribute("errorMsg", "参数错误");
-            request.getRequestDispatcher("/cart/index.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/user/cart?action=viewCart");
         }
     }
     
@@ -78,15 +78,11 @@ public class CartServlet extends BaseServlet {
             Integer quantity = Integer.parseInt(request.getParameter("quantity"));
             
             boolean success = cartService.updateQuantity(cartId, quantity);
-            if (success) {
-                response.sendRedirect(request.getContextPath() + "/cart/index.jsp");
-            } else {
-                request.setAttribute("errorMsg", "更新购物车失败，可能库存不足");
-                request.getRequestDispatcher("/cart/index.jsp").forward(request, response);
-            }
+            // 重定向到viewCart方法而不是直接到JSP
+            response.sendRedirect(request.getContextPath() + "/user/cart?action=viewCart");
         } catch (NumberFormatException e) {
             request.setAttribute("errorMsg", "参数错误");
-            request.getRequestDispatcher("/cart/index.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/user/cart?action=viewCart");
         }
     }
     
@@ -103,15 +99,10 @@ public class CartServlet extends BaseServlet {
             Integer cartId = Integer.parseInt(request.getParameter("cartId"));
             
             boolean success = cartService.removeFromCart(cartId);
-            if (success) {
-                response.sendRedirect(request.getContextPath() + "/cart/index.jsp");
-            } else {
-                request.setAttribute("errorMsg", "删除购物车项失败");
-                request.getRequestDispatcher("/cart/index.jsp").forward(request, response);
-            }
+            response.sendRedirect(request.getContextPath() + "/user/cart?action=viewCart");
         } catch (NumberFormatException e) {
             request.setAttribute("errorMsg", "参数错误");
-            request.getRequestDispatcher("/cart/index.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/user/cart?action=viewCart");
         }
     }
     
@@ -131,7 +122,7 @@ public class CartServlet extends BaseServlet {
         double totalAmount = 0;
         for (ShoppingCart cartItem : cartItems) {
             Book book = bookService.getBookById(cartItem.getBookId());
-            cartItem.setQuantity(cartItem.getQuantity()); // 确保数量正确
+            cartItem.setBook(book);
             totalAmount += book.getPrice() * cartItem.getQuantity();
         }
         
@@ -150,11 +141,6 @@ public class CartServlet extends BaseServlet {
         }
         
         boolean success = cartService.clearCart(user.getUserId());
-        if (success) {
-            response.sendRedirect(request.getContextPath() + "/cart/index.jsp");
-        } else {
-            request.setAttribute("errorMsg", "清空购物车失败");
-            request.getRequestDispatcher("/cart/index.jsp").forward(request, response);
-        }
+        response.sendRedirect(request.getContextPath() + "/user/cart?action=viewCart");
     }
 }

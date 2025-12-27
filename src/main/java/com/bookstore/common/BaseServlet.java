@@ -15,7 +15,13 @@ public class BaseServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 在doGet或doPost方法中
         String action = request.getParameter("action");
+        // 如果没有指定action，则使用默认action
+        if (action == null || action.isEmpty()) {
+            action = getInitParameter("defaultAction");
+        }
+
         if (action == null) {
             throw new IllegalArgumentException("缺少action参数");
         }

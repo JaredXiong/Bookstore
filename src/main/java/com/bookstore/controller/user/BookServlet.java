@@ -37,6 +37,15 @@ public class BookServlet extends HttpServlet {
             case "detail":
                 showBookDetail(request, response);
                 break;
+            case "random":
+                getRandomBooks(request, response); // 处理随机图书请求（用于图书秒杀）
+                break;
+            case "topRated":
+                getTopRatedBooks(request, response); // 处理评分最高图书请求（用于精选图书）
+                break;
+            case "newest":
+                getNewestBooks(request, response); // 处理最新图书请求（用于新书推荐）
+                break;
             case "list":
             default:
                 listBooks(request, response);
@@ -97,16 +106,54 @@ public class BookServlet extends HttpServlet {
             BookImageMapper bookImageMapper = sqlSession.getMapper(BookImageMapper.class);
             List<BookImage> bookImages = bookImageMapper.selectByBookId(bookId);
             MyBatisUtil.closeSqlSession(sqlSession);
-
             // 设置request属性
             request.setAttribute("book", book);
             request.setAttribute("bookImages", bookImages);
-
+            System.out.println("bookImages: " + bookImages);
             // 转发到图书详情页
             request.getRequestDispatcher("/book/detail.jsp").forward(request, response);
         } catch (NumberFormatException e) {
             // 如果ID格式不正确，重定向到图书列表页
             response.sendRedirect(request.getContextPath() + "/user/book?action=list");
         }
+    }
+
+    // 处理随机图书请求（用于图书秒杀）
+    private void getRandomBooks(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String limitParam = request.getParameter("limit");
+        Integer limit = (limitParam != null && !limitParam.isEmpty()) ? Integer.parseInt(limitParam) : 5;
+        List<Book> randomBooks = bookService.getRandomBooks(limit);
+        System.out.println("randomBooks: " + randomBooks);
+        request.setAttribute("randomBooks", randomBooks);
+        // 直接返回JSON数据，用于AJAX请求
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(new com.fasterxml.jackson.databind.ObjectMapper().writeValueAsString(randomBooks));
+    }
+
+    // 处理评分最高图书请求（用于精选图书）
+    private void getTopRatedBooks(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String limitParam = request.getParameter("limit");
+        Integer limit = (limitParam != null && !limitParam.isEmpty()) ? Integer.parseInt(limitParam) : 5;
+        List<Book> topRatedBooks = bookService.getTopRatedBooks(limit);
+        System.out.println("topRatedBooks: " + topRatedBooks);
+        request.setAttribute("topRatedBooks", topRatedBooks);
+        // 直接返回JSON数据，用于AJAX请求
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(new com.fasterxml.jackson.databind.ObjectMapper().writeValueAsString(topRatedBooks));
+    }
+
+    // 处理最新图书请求（用于新书推荐）
+    private void getNewestBooks(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String limitParam = request.getParameter("limit");
+        Integer limit = (limitParam != null && !limitParam.isEmpty()) ? Integer.parseInt(limitParam) : 5;
+        List<Book> newestBooks = bookService.getNewestBooks(limit);
+        System.out.println("newestBooks: " + newestBooks);
+        request.setAttribute("newestBooks", newestBooks);
+        // 直接返回JSON数据，用于AJAX请求
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(new com.fasterxml.jackson.databind.ObjectMapper().writeValueAsString(newestBooks));
     }
 }

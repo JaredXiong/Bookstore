@@ -110,13 +110,30 @@
         
         <!-- 购买按钮 -->
         <div class="buy-buttons">
-            <a href="${pageContext.request.contextPath}/user/cart?action=addToCart&bookId=<%= book.getBookId() %>&quantity=1" class="btn btn-success">
+            <div class="quantity-selector">
+                <span>数量：</span>
+                <input type="number" id="quantity" name="quantity" value="1" min="1" max="<%= book.getStockNum() %>" style="width: 60px; margin: 0 10px; text-align: center;">
+                <span>库存：<%= book.getStockNum() %>本</span>
+            </div>
+            <a href="#" onclick="addToCart(<%= book.getBookId() %>)" class="btn btn-success">
                 加入购物车
             </a>
-            <a href="${pageContext.request.contextPath}/user/order?action=directBuy&bookId=<%= book.getBookId() %>&quantity=1" class="btn btn-primary">
+            <a href="#" onclick="directBuy(<%= book.getBookId() %>)" class="btn btn-primary">
                 立即购买
             </a>
         </div>
+        
+        <script>
+        function addToCart(bookId) {
+            const quantity = document.getElementById('quantity').value;
+            window.location.href = '${pageContext.request.contextPath}/user/cart?action=addToCart&bookId=' + bookId + '&quantity=' + quantity;
+        }
+        
+        function directBuy(bookId) {
+            const quantity = document.getElementById('quantity').value;
+            window.location.href = '${pageContext.request.contextPath}/user/order?action=directBuy&bookId=' + bookId + '&quantity=' + quantity;
+        }
+        </script>
     </div>
 </div>
 

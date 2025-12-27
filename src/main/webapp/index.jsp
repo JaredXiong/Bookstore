@@ -141,112 +141,29 @@
     <div class="container">
         <h2 class="section-title">📢 限时秒杀</h2>
         <div class="countdown">
-            距离结束还有：
-            <span class="countdown-item" id="hours">02</span>:
-            <span class="countdown-item" id="minutes">30</span>:
-            <span class="countdown-item" id="seconds">45</span>
+            距离下一场秒杀开始还有：
+            <span class="countdown-item" id="hours">00</span>:
+            <span class="countdown-item" id="minutes">00</span>:
+            <span class="countdown-item" id="seconds">00</span>
         </div>
-        <div class="row">
-            <!-- 秒杀图书卡片 -->
-            <div class="book-item">
-                <img src="https://via.placeholder.com/300x400/3498db/ffffff?text=Java编程思想" alt="Java编程思想" class="book-cover">
-                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=1">Java编程思想</a>
-                    <p class="book-author">作者：Bruce Eckel</p>
-                    <p class="book-publisher">出版社：机械工业出版社</p>
-                    <p class="book-price">价格：¥59.90 <span class="original-price">¥129.00</span></p>
-            </div>
-            <div class="book-item">
-                <img src="https://via.placeholder.com/300x400/e74c3c/ffffff?text=深入理解计算机系统" alt="深入理解计算机系统" class="book-cover">
-                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=2">深入理解计算机系统</a>
-                    <p class="book-author">作者：Randal E. Bryant</p>
-                    <p class="book-publisher">出版社：机械工业出版社</p>
-                    <p class="book-price">价格：¥69.90 <span class="original-price">¥139.00</span></p>
-            </div>
-            <div class="book-item">
-                <img src="https://via.placeholder.com/300x400/2ecc71/ffffff?text=Python编程" alt="Python编程：从入门到实践" class="book-cover">
-                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=3">Python编程：从入门到实践</a>
-                    <p class="book-author">作者：Eric Matthes</p>
-                    <p class="book-publisher">出版社：人民邮电出版社</p>
-                    <p class="book-price">价格：¥49.90 <span class="original-price">¥99.00</span></p>
-            </div>
-            <div class="book-item">
-                <img src="https://via.placeholder.com/300x400/f39c12/ffffff?text=算法导论" alt="算法导论" class="book-cover">
-                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=4">算法导论</a>
-                    <p class="book-author">作者：Thomas H. Cormen</p>
-                    <p class="book-publisher">出版社：机械工业出版社</p>
-                    <p class="book-price">价格：¥79.90 <span class="original-price">¥159.00</span></p>
-            </div>
+        <div class="row" id="seckill-books-container">
+            <!-- 秒杀图书卡片将通过JavaScript动态生成 -->
         </div>
     </div>
 
     <!-- 精选图书 -->
     <div class="container">
         <h2 class="section-title">⭐ 精选图书</h2>
-        <div class="row">
-            <!-- 精选图书卡片 -->
-            <div class="book-item">
-                <img src="https://via.placeholder.com/300x400/9b59b6/ffffff?text=设计模式" alt="设计模式" class="book-cover">
-                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=5">设计模式：可复用面向对象软件的基础</a>
-                    <p class="book-author">作者：Erich Gamma</p>
-                    <p class="book-publisher">出版社：机械工业出版社</p>
-                    <p class="book-price">价格：¥89.00</p>
-            </div>
-            <div class="book-item">
-                <img src="https://via.placeholder.com/300x400/1abc9c/ffffff?text=重构" alt="重构：改善既有代码的设计" class="book-cover">
-                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=6">重构：改善既有代码的设计</a>
-                    <p class="book-author">作者：Martin Fowler</p>
-                    <p class="book-publisher">出版社：人民邮电出版社</p>
-                    <p class="book-price">价格：¥79.00</p>
-            </div>
-            <div class="book-item">
-                <img src="https://via.placeholder.com/300x400/e67e22/ffffff?text=代码整洁之道" alt="代码整洁之道" class="book-cover">
-                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=7">代码整洁之道</a>
-                    <p class="book-publisher">出版社：人民邮电出版社</p>
-                    <p class="book-price">价格：¥69.00</p>
-            </div>
-            <div class="book-item">
-                <img src="https://via.placeholder.com/300x400/34495e/ffffff?text=人月神话" alt="人月神话" class="book-cover">
-                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=8">人月神话</a>
-                    <p class="book-author">作者：Frederick P. Brooks Jr.</p>
-                    <p class="book-publisher">出版社：清华大学出版社</p>
-                    <p class="book-price">价格：¥59.00</p>
-            </div>
+        <div class="row" id="top-rated-books-container">
+            <!-- 精选图书卡片将通过JavaScript动态生成 -->
         </div>
     </div>
 
     <!-- 新书推荐 -->
     <div class="container">
         <h2 class="section-title">📖 新书推荐</h2>
-        <div class="row">
-            <!-- 新书推荐卡片 -->
-            <div class="book-item">
-                <img src="https://via.placeholder.com/300x400/e74c3c/ffffff?text=AI新时代" alt="AI新时代" class="book-cover">
-                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=9">AI新时代：人工智能的商业应用</a>
-                    <p class="book-author">作者：吴军</p>
-                    <p class="book-publisher">出版社：中信出版社</p>
-                    <p class="book-price">价格：¥99.00</p>
-            </div>
-            <div class="book-item">
-                <img src="https://via.placeholder.com/300x400/3498db/ffffff?text=数据分析实战" alt="数据分析实战" class="book-cover">
-                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=10">数据分析实战：使用Python进行数据挖掘</a>
-                    <p class="book-author">作者：李航</p>
-                    <p class="book-publisher">出版社：机械工业出版社</p>
-                    <p class="book-price">价格：¥89.00</p>
-            </div>
-            <div class="book-item">
-                <img src="https://via.placeholder.com/300x400/2ecc71/ffffff?text=云计算架构" alt="云计算架构" class="book-cover">
-                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=11">云计算架构设计：原理与实践</a>
-                    <p class="book-author">作者：王珊</p>
-                    <p class="book-publisher">出版社：清华大学出版社</p>
-                    <p class="book-price">价格：¥109.00</p>
-            </div>
-            <div class="book-item">
-                <img src="https://via.placeholder.com/300x400/9b59b6/ffffff?text=网络安全技术" alt="网络安全技术" class="book-cover">
-                    <a href="${pageContext.request.contextPath}/user/book?action=detail&id=12">网络安全技术与实践</a>
-                    <p class="book-author">作者：张焕国</p>
-                    <p class="book-publisher">出版社：武汉大学出版社</p>
-                    <p class="book-price">价格：¥99.00</p>
-            </div>
+        <div class="row" id="newest-books-container">
+            <!-- 新书推荐卡片将通过JavaScript动态生成 -->
         </div>
     </div>
 
@@ -294,37 +211,169 @@
             showSlide(nextSlide);
         });
 
-        // 秒杀倒计时
-        function updateCountdown() {
-            const hours = document.getElementById('hours');
-            const minutes = document.getElementById('minutes');
-            const seconds = document.getElementById('seconds');
-
-            let h = parseInt(hours.textContent);
-            let m = parseInt(minutes.textContent);
-            let s = parseInt(seconds.textContent);
-
-            s--;
-            if (s < 0) {
-                s = 59;
-                m--;
-                if (m < 0) {
-                    m = 59;
-                    h--;
-                    if (h < 0) {
-                        h = 0;
-                        m = 0;
-                        s = 0;
-                    }
-                }
-            }
-
-            hours.textContent = String(h).padStart(2, '0');
-            minutes.textContent = String(m).padStart(2, '0');
-            seconds.textContent = String(s).padStart(2, '0');
+        // 获取当前时间
+        function getCurrentTime() {
+            return new Date();
         }
 
-        setInterval(updateCountdown, 1000);
+        // 计算距离下一场秒杀活动的时间
+        function calculateTimeToNextSeckill() {
+            const currentTime = getCurrentTime();
+            const currentHour = currentTime.getHours();
+            const currentMinute = currentTime.getMinutes();
+            const currentSecond = currentTime.getSeconds();
+
+            // 秒杀时间点：8:00, 12:00, 16:00, 20:00
+            const seckillHours = [8, 12, 16, 20];
+            
+            // 找到下一个秒杀时间点
+            let nextSeckillHour = null;
+            for (let hour of seckillHours) {
+                if (hour > currentHour) {
+                    nextSeckillHour = hour;
+                    break;
+                }
+            }
+            
+            // 如果今天的秒杀活动已经结束，使用明天的第一场
+            if (nextSeckillHour === null) {
+                nextSeckillHour = seckillHours[0];
+                // 创建明天的日期对象
+                const nextDay = new Date();
+                nextDay.setDate(nextDay.getDate() + 1);
+                nextDay.setHours(nextSeckillHour, 0, 0, 0);
+                return nextDay - currentTime;
+            } else {
+                // 创建今天下一场秒杀的日期对象
+                const nextSeckill = new Date();
+                nextSeckill.setHours(nextSeckillHour, 0, 0, 0);
+                return nextSeckill - currentTime;
+            }
+        }
+
+        // 秒杀倒计时
+        function updateSeckillCountdown() {
+            const timeRemaining = calculateTimeToNextSeckill();
+            
+            if (timeRemaining <= 0) {
+                // 秒杀开始，更新秒杀图书
+                loadSeckillBooks();
+                // 重新计算下一场秒杀时间
+                updateSeckillCountdown();
+                return;
+            }
+
+            const hours = Math.floor(timeRemaining / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // 存储应用上下文路径
+        const contextPath = '<%= request.getContextPath() %>';
+        
+        // 加载秒杀图书
+        function loadSeckillBooks() {
+            fetch(contextPath + '/user/book?action=random&limit=5')
+                .then(response => response.json())
+                .then(books => {
+                    const container = document.getElementById('seckill-books-container');
+                    container.innerHTML = '';
+                    
+                    books.forEach(book => {
+                        // 计算秒杀价格（原价的7折）
+                        const seckillPrice = (book.price * 0.7).toFixed(2);
+                        const bookItem = document.createElement('div');
+                        bookItem.className = 'book-item';
+
+                        bookItem.innerHTML = 
+                            '<img src="' + contextPath + book.coverImage + '" alt="' + book.bookName + '" class="book-cover">' +
+                            '<a href="' + contextPath + '/user/book?action=detail&id=' + book.bookId + '">' + book.bookName + '</a>' +
+                            '<p class="book-author">作者：' + book.author + '</p>' +
+                            '<p class="book-publisher">出版社：' + book.publisher + '</p>' +
+                            '<p class="book-price">价格：¥' + seckillPrice + ' <span class="original-price">¥' + book.price + '</span></p>';
+
+                        container.appendChild(bookItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('加载秒杀图书失败:', error);
+                });
+        }
+
+        // 加载精选图书
+        function loadTopRatedBooks() {
+            fetch(contextPath + '/user/book?action=topRated&limit=5')
+                .then(response => response.json())
+                .then(books => {
+                    const container = document.getElementById('top-rated-books-container');
+                    container.innerHTML = '';
+                    
+                    books.forEach(book => {
+                        const bookItem = document.createElement('div');
+                        bookItem.className = 'book-item';
+
+                        bookItem.innerHTML = 
+                            '<img src="' + contextPath + book.coverImage + '" alt="' + book.bookName + '" class="book-cover">' +
+                            '<a href="' + contextPath + '/user/book?action=detail&id=' + book.bookId + '">' + book.bookName + '</a>' +
+                            '<p class="book-author">作者：' + book.author + '</p>' +
+                            '<p class="book-publisher">出版社：' + book.publisher + '</p>' +
+                            '<p class="book-price">价格：¥' + book.price + '</p>';
+                        
+                        container.appendChild(bookItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('加载精选图书失败:', error);
+                });
+        }
+
+        // 加载新书推荐
+        function loadNewestBooks() {
+            fetch(contextPath + '/user/book?action=newest&limit=5')
+                .then(response => response.json())
+                .then(books => {
+                    const container = document.getElementById('newest-books-container');
+                    container.innerHTML = '';
+                    
+                    books.forEach(book => {
+                        const bookItem = document.createElement('div');
+                        bookItem.className = 'book-item';
+
+                        bookItem.innerHTML = 
+                            '<img src="' + contextPath + book.coverImage + '" alt="' + book.bookName + '" class="book-cover">' +
+                            '<a href="' + contextPath + '/user/book?action=detail&id=' + book.bookId + '">' + book.bookName + '</a>' +
+                            '<p class="book-author">作者：' + book.author + '</p>' +
+                            '<p class="book-publisher">出版社：' + book.publisher + '</p>' +
+                            '<p class="book-price">价格：¥' + book.price + '</p>';
+                        
+                        container.appendChild(bookItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('加载新书推荐失败:', error);
+                });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 初始化秒杀倒计时
+            updateSeckillCountdown();
+            // 每秒更新一次倒计时
+            setInterval(updateSeckillCountdown, 1000);
+            
+            // 加载秒杀图书
+            loadSeckillBooks();
+            
+            // 加载精选图书
+            loadTopRatedBooks();
+            
+            // 加载新书推荐
+            loadNewestBooks();
+        });
     </script>
 </body>
 </html>

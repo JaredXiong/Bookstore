@@ -65,4 +65,33 @@
         FROM `book`
         WHERE `is_active` = true AND `book_type` = #{bookType}
     </select>
+    
+    <!-- 随机获取指定数量的图书（用于图书秒杀） -->
+    <select id="selectRandomBooks" resultType="com.bookstore.entity.Book" parameterType="java.lang.Integer">
+        SELECT `book_id` as bookId, `isbn` as ISBN, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `is_active` as isActive, `book_type` as bookType
+        FROM `book`
+        WHERE `is_active` = true AND `stock_num` > 0
+        ORDER BY RAND()
+        LIMIT #{limit}
+    </select>
+    
+    <!-- 获取评分最高的图书（用于精选图书） -->
+    <select id="selectTopRatedBooks" resultType="com.bookstore.entity.Book" parameterType="java.lang.Integer">
+        SELECT b.`book_id` as bookId, b.`isbn` as ISBN, b.`book_name` as bookName, b.`author`, b.`publisher`, b.`price`, b.`stock_num` as stockNum, b.`sold_num` as soldNum, b.`introduction`, b.`cover_image` as coverImage, b.`is_active` as isActive, b.`book_type` as bookType
+        FROM `book` b
+        LEFT JOIN `comment` c ON b.`book_id` = c.`book_id`
+        WHERE b.`is_active` = true
+        GROUP BY b.`book_id`
+        ORDER BY COALESCE(AVG(c.`rating`), 0) DESC
+        LIMIT #{limit}
+    </select>
+    
+    <!-- 获取最新添加的图书（用于新书推荐） -->
+    <select id="selectNewestBooks" resultType="com.bookstore.entity.Book" parameterType="java.lang.Integer">
+        SELECT `book_id` as bookId, `isbn` as ISBN, `book_name` as bookName, `author`, `publisher`, `price`, `stock_num` as stockNum, `sold_num` as soldNum, `introduction`, `cover_image` as coverImage, `is_active` as isActive, `book_type` as bookType
+        FROM `book`
+        WHERE `is_active` = true
+        ORDER BY `book_id` DESC
+        LIMIT #{limit}
+    </select>
 </mapper>
