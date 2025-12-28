@@ -1,6 +1,7 @@
 package com.bookstore.mapper;
 
 import com.bookstore.entity.Book;
+import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
@@ -23,6 +24,13 @@ public interface BookMapper {
      * @return 图书列表
      */
     List<Book> selectAll();
+    /**
+     * 分页查询所有图书（包括下架的）
+     * @param offset 偏移量
+     * @param limit 限制数量
+     * @return 图书列表
+     */
+    List<Book> selectAllByPage(@Param("offset") Integer offset, @Param("limit") Integer limit);
     /**
      * 查询所有上架的图书
      * @return 上架图书列表
@@ -51,10 +59,15 @@ public interface BookMapper {
      */
     void delete(Integer bookId);
     /**
-     * 获取总图书数量
-     * @return 图书总数
+     * 获取上架图书数量
+     * @return 上架图书总数
      */
     Integer getTotalBookCount();
+    /**
+     * 获取所有图书数量（包括下架的）
+     * @return 所有图书总数
+     */
+    Integer getAllBookCount();
     /**
      * 随机获取指定数量的图书
      * @param limit 图书数量限制
@@ -73,4 +86,10 @@ public interface BookMapper {
      * @return 最新图书列表
      */
     List<Book> selectNewestBooks(Integer limit);
+    /**
+     * 更新图书库存和销量
+     * @param bookId 图书ID
+     * @param quantity 购买数量
+     */
+    void updateStock(@Param("bookId") Integer bookId, @Param("quantity") Integer quantity);
 }

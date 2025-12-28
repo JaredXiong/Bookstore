@@ -25,16 +25,17 @@ public class BookServiceImpl implements BookService {
     private static final String RANDOM_BOOKS_CACHE_KEY_PREFIX = "book:random:"; // 随机图书缓存前缀
     private static final String TOP_RATED_BOOKS_CACHE_KEY_PREFIX = "book:top_rated:"; // 评分最高图书缓存前缀
     private static final String NEWEST_BOOKS_CACHE_KEY_PREFIX = "book:newest:"; // 最新图书缓存前缀
+    private static final String ALL_BOOKS_PAGE_CACHE_PREFIX = "book:all:page:"; // 所有图书分页缓存前缀
 
     @Override
     public List<Book> searchBooks(String keyword) {
         if (keyword == null || keyword.trim().isEmpty()) {
             return new ArrayList<>();
         }
-        
+
         // 对关键词进行trim处理，确保没有前导或尾随空格
         String trimmedKeyword = keyword.trim();
-        
+
         SqlSession sqlSession = null;
         try {
             sqlSession = MyBatisUtil.getSqlSession();
@@ -77,7 +78,7 @@ public class BookServiceImpl implements BookService {
             MyBatisUtil.closeSqlSession(sqlSession);
         }
     }
-    
+
     // 添加按类别获取图书的方法
     @Override
     public List<Book> getBooksByType(Integer bookType) {
@@ -169,6 +170,9 @@ public class BookServiceImpl implements BookService {
                     .forEach(jedis::del);
             // 清除所有最新图书缓存
             jedis.keys(NEWEST_BOOKS_CACHE_KEY_PREFIX + "*")
+                    .forEach(jedis::del);
+            // 清除所有图书分页缓存
+            jedis.keys(ALL_BOOKS_PAGE_CACHE_PREFIX + "*")
                     .forEach(jedis::del);
         } finally {
             RedisUtil.closeJedis(jedis);
@@ -269,6 +273,102 @@ public class BookServiceImpl implements BookService {
             }
 
             return books;
+        } finally {
+            MyBatisUtil.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Override
+    public List<Book> getAllBooksByPage(Integer page, Integer pageSize) {
+        // 计算偏移量
+        int offset = (page - 1) * pageSize;
+
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MyBatisUtil.getSqlSession();
+            BookMapper bookMapper = sqlSession.getMapper(BookMapper.class);
+            return bookMapper.selectAllByPage(offset, pageSize);
+        } finally {
+            MyBatisUtil.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Override
+    public Integer getAllBooksCount() {
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MyBatisUtil.getSqlSession();
+            BookMapper bookMapper = sqlSession.getMapper(BookMapper.class);
+            return bookMapper.getAllBookCount();
+        } finally {
+            MyBatisUtil.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Override
+    public void addBook(Book book) {
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MyBatisUtil.getSqlSession();
+            BookMapper bookMapper = sqlSession.getMapper(BookMapper.class);
+            bookMapper.insert(book);
+            sqlSession.commit();
+            // 清除相关缓存
+            clearBookCache();
+            // 清除统计信息缓存
+            RedisUtil.del("admin:statistics");
+        } catch (Exception e) {
+            if (sqlSession != null) {
+                sqlSession.rollback();
+            }
+            e.printStackTrace();
+            throw new RuntimeException("添加图书失败", e);
+        } finally {
+            MyBatisUtil.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Override
+    public void updateBook(Book book) {
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MyBatisUtil.getSqlSession();
+            BookMapper bookMapper = sqlSession.getMapper(BookMapper.class);
+            bookMapper.update(book);
+            sqlSession.commit();
+            // 清除相关缓存
+            clearBookCache();
+            // 清除统计信息缓存
+            RedisUtil.del("admin:statistics");
+        } catch (Exception e) {
+            if (sqlSession != null) {
+                sqlSession.rollback();
+            }
+            e.printStackTrace();
+            throw new RuntimeException("修改图书失败", e);
+        } finally {
+            MyBatisUtil.closeSqlSession(sqlSession);
+        }
+    }
+
+    @Override
+    public void deleteBook(Integer bookId) {
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = MyBatisUtil.getSqlSession();
+            BookMapper bookMapper = sqlSession.getMapper(BookMapper.class);
+            bookMapper.delete(bookId);
+            sqlSession.commit();
+            // 清除相关缓存
+            clearBookCache();
+            // 清除统计信息缓存
+            RedisUtil.del("admin:statistics");
+        } catch (Exception e) {
+            if (sqlSession != null) {
+                sqlSession.rollback();
+            }
+            e.printStackTrace();
+            throw new RuntimeException("删除图书失败", e);
         } finally {
             MyBatisUtil.closeSqlSession(sqlSession);
         }

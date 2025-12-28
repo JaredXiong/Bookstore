@@ -614,19 +614,6 @@ body {
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-/* 复选框样式 */
-.checkbox-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.checkbox-group label {
-    margin-bottom: 0;
-    margin-left: 5px;
-    cursor: pointer;
-}
-
 /* 忘记密码样式 */
 .forgot-password {
     text-align: right;
