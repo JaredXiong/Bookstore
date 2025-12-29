@@ -17,7 +17,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 检查是否有记住我的Cookie
+        // 检查是否有自动登陆的 Cookie
         Cookie[] cookies = request.getCookies();
         String username = null;
         String password = null;
@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
             }
         }
         
-        // 如果有记住我的Cookie，自动登录
+        // 如果有自动登陆的 Cookie，自动登录
         if (hasRememberCookie) {
             User user = userService.login(username, password);
             if (user != null) {

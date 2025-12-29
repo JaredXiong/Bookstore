@@ -29,7 +29,7 @@ public class AdminLoginFilter implements Filter {
             return;
         }
         
-        // 获取session
+        // 获取 session
         HttpSession session = request.getSession();
         
         // 检查管理员是否已登录

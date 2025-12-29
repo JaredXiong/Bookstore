@@ -24,7 +24,7 @@ public class UserLoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         
-        // 获取session
+        // 获取 session
         HttpSession session = request.getSession();
         
         // 检查用户是否已登录
