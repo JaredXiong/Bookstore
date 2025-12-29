@@ -138,74 +138,74 @@
                     <h1>添加新图书</h1>
                     <!-- 返回图书列表按钮 -->
                     <a href="${pageContext.request.contextPath}/admin/book?action=list" class="btn btn-secondary">&laquo; 返回图书列表</a>
-                    <!-- 表单提交action -->
-                    <form action="${pageContext.request.contextPath}/admin/book?action=add" method="post" class="book-form">
-                        <div class="form-group">
-                            <label for="ISBN">ISBN</label>
-                            <input type="text" id="ISBN" name="ISBN" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="bookName">图书名称</label>
-                            <input type="text" id="bookName" name="bookName" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="author">作者</label>
-                            <input type="text" id="author" name="author" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="publisher">出版社</label>
-                            <input type="text" id="publisher" name="publisher" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="price">价格</label>
-                            <input type="number" id="price" name="price" step="0.01" min="0" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="stockNum">库存数量</label>
-                            <input type="number" id="stockNum" name="stockNum" min="0" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="introduction">图书简介</label>
-                            <textarea id="introduction" name="introduction" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="coverImage">封面图片路径</label>
-                            <input type="text" id="coverImage" name="coverImage" required>
-                            <small>提示：请输入图片在服务器上的相对路径，如 /images/book/cover.jpg</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="bookType">图书类型</label>
-                            <select id="bookType" name="bookType" required>
-                                <option value="1">文学</option>
-                                <option value="2">社科</option>
-                                <option value="3">少儿</option>
-                                <option value="4">技术</option>
-                                <option value="5">其他</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="isActive">上架销售</label>
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="isActive" name="isActive" checked>
-                                <label for="isActive">是</label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">添加图书</button>
-                            <a href="?action=list" class="btn btn-secondary">取消</a>
-                        </div>
-                    </form>
                 </div>
+                <!-- 表单提交 action -->
+                <form action="${pageContext.request.contextPath}/admin/book?action=add" method="post" class="book-form">
+                    <div class="form-group">
+                        <label for="ISBN">ISBN</label>
+                        <input type="text" id="ISBN" name="ISBN" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookName">图书名称</label>
+                        <input type="text" id="bookName" name="bookName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="author">作者</label>
+                        <input type="text" id="author" name="author" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publisher">出版社</label>
+                        <input type="text" id="publisher" name="publisher" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">价格</label>
+                        <input type="number" id="price" name="price" step="0.01" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stockNum">库存数量</label>
+                        <input type="number" id="stockNum" name="stockNum" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="introduction">图书简介</label>
+                        <textarea id="introduction" name="introduction" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="coverImage">封面图片路径</label>
+                        <input type="text" id="coverImage" name="coverImage" required>
+                        <small>提示：请输入图片在服务器上的相对路径，如 /images/book/cover.jpg</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookType">图书类型</label>
+                        <select id="bookType" name="bookType" required>
+                            <option value="1">文学</option>
+                            <option value="2">社科</option>
+                            <option value="3">少儿</option>
+                            <option value="4">技术</option>
+                            <option value="5">其他</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="isActive">上架销售</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="isActive" name="isActive" checked>
+                            <label for="isActive">是</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">添加图书</button>
+                        <a href="?action=list" class="btn btn-secondary">取消</a>
+                    </div>
+                </form>
             </div>
         </main>
     </div>
