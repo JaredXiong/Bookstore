@@ -21,24 +21,6 @@ public class OrderItemServiceImpl implements OrderItemService {
     private static final AtomicInteger ORDER_SEQUENCE = new AtomicInteger(0);
     private static String LAST_DATE = "";
     
-    @Override
-    public boolean addOrderItem(OrderItem orderItem) {
-        SqlSession sqlSession = null;
-        try {
-            sqlSession = MyBatisUtil.getSqlSession();
-            OrderItemMapper orderItemMapper = sqlSession.getMapper(OrderItemMapper.class);
-            orderItemMapper.insert(orderItem);
-            sqlSession.commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            sqlSession.rollback();
-            return false;
-        } finally {
-            MyBatisUtil.closeSqlSession(sqlSession);
-        }
-    }
-    
     /**
      * 批量添加订单项
      * @param orderItems 订单项列表
@@ -65,36 +47,6 @@ public class OrderItemServiceImpl implements OrderItemService {
             sqlSession = MyBatisUtil.getSqlSession();
             OrderItemMapper orderItemMapper = sqlSession.getMapper(OrderItemMapper.class);
             return orderItemMapper.selectByOrderId(orderId);
-        } finally {
-            MyBatisUtil.closeSqlSession(sqlSession);
-        }
-    }
-    
-    @Override
-    public OrderItem getOrderItemById(Integer itemId) {
-        SqlSession sqlSession = null;
-        try {
-            sqlSession = MyBatisUtil.getSqlSession();
-            OrderItemMapper orderItemMapper = sqlSession.getMapper(OrderItemMapper.class);
-            return orderItemMapper.selectById(itemId);
-        } finally {
-            MyBatisUtil.closeSqlSession(sqlSession);
-        }
-    }
-    
-    @Override
-    public boolean deleteOrderItem(Integer itemId) {
-        SqlSession sqlSession = null;
-        try {
-            sqlSession = MyBatisUtil.getSqlSession();
-            OrderItemMapper orderItemMapper = sqlSession.getMapper(OrderItemMapper.class);
-            orderItemMapper.delete(itemId);
-            sqlSession.commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            sqlSession.rollback();
-            return false;
         } finally {
             MyBatisUtil.closeSqlSession(sqlSession);
         }

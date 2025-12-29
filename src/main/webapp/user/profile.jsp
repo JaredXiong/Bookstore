@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>用户个人中心 - 求知书店</title>
+    <link rel="icon" type="image/x-icon" href="../images/icons/书城.svg">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <style>
         /* 个人中心样式 */
@@ -46,11 +47,6 @@
 
         .profile-menu a:hover {
             background-color: #e9e9e9;
-        }
-
-        .profile-menu a.active {
-            background-color: #4CAF50;
-            color: white;
         }
 
         .profile-content {

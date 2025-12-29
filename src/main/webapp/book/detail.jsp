@@ -7,6 +7,7 @@
 <head>
     <title>图书详情</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../images/icons/书城.svg">
 </head>
 <body>
 <!-- 引入导航栏 -->
@@ -86,8 +87,8 @@
                         case 4: bookType = "技术"; break;
                         case 5: bookType = "其他"; break;
                     }
-                    <%= bookType %>
                 %>
+                <%= bookType %>
             </span>
         </div>
         

@@ -60,7 +60,7 @@ public class BookServlet extends HttpServlet {
     }
 
     // 实时搜索方法
-    private void searchAuto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void searchAuto(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String keyword = request.getParameter("keyword");
         if (keyword == null || keyword.trim().isEmpty()) {
             response.setContentType("application/json");
@@ -174,7 +174,7 @@ public class BookServlet extends HttpServlet {
     }
 
     // 处理随机图书请求（用于图书秒杀）
-    private void getRandomBooks(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void getRandomBooks(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String limitParam = request.getParameter("limit");
         Integer limit = (limitParam != null && !limitParam.isEmpty()) ? Integer.parseInt(limitParam) : 5;
         List<Book> randomBooks = bookService.getRandomBooks(limit);
@@ -186,7 +186,7 @@ public class BookServlet extends HttpServlet {
     }
 
     // 处理评分最高图书请求（用于精选图书）
-    private void getTopRatedBooks(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void getTopRatedBooks(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String limitParam = request.getParameter("limit");
         Integer limit = (limitParam != null && !limitParam.isEmpty()) ? Integer.parseInt(limitParam) : 5;
         List<Book> topRatedBooks = bookService.getTopRatedBooks(limit);
@@ -198,7 +198,7 @@ public class BookServlet extends HttpServlet {
     }
 
     // 处理最新图书请求（用于新书推荐）
-    private void getNewestBooks(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void getNewestBooks(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String limitParam = request.getParameter("limit");
         Integer limit = (limitParam != null && !limitParam.isEmpty()) ? Integer.parseInt(limitParam) : 5;
         List<Book> newestBooks = bookService.getNewestBooks(limit);

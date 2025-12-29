@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="icon" type="image/x-icon" href="../../images/icons/管理员.svg">
 </head>
 <body>
 <div class="admin-container">

@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>用户管理 - 求知书店</title>
+    <link rel="icon" type="image/x-icon" href="../../images/icons/管理员.svg">
     <style>
         /* 管理后台布局 */
         .admin-container {

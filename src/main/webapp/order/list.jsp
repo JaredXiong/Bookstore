@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>订单列表</title>
+    <link rel="icon" type="image/x-icon" href="../images/icons/书城.svg">
     <style>
         .order-list {
             width: 80%;

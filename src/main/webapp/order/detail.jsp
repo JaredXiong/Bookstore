@@ -4,6 +4,7 @@
 <head>
     <title>订单详情</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../images/icons/书城.svg">
     <style>
         /* 订单详情页面样式 */
         .order-container {
