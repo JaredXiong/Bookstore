@@ -1,6 +1,7 @@
 package com.bookstore.service;
 
 import com.bookstore.entity.User;
+import java.util.List;
 
 public interface UserService {
     /**
@@ -45,4 +46,29 @@ public interface UserService {
      * @return 是否删除成功
      */
     boolean deleteUser(Integer userId);
+    
+    /**
+     * 检查是否是最后一个管理员
+     * @return 是否是最后一个管理员
+     */
+    boolean isLastAdmin();
+    
+    /**
+     * 获取所有用户
+     * @return 用户列表
+     */
+    List<User> getAllUsers();
+    
+    /**
+     * 获取所有管理员
+     * @return 管理员列表
+     */
+    List<User> getAllAdmins();
+    
+    /**
+     * 添加管理员
+     * @param user 管理员信息
+     * @return 是否添加成功
+     */
+    boolean addAdmin(User user);
 }

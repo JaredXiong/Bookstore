@@ -296,7 +296,7 @@
             <% if (hasUncompletedOrders) { %>
                 <div class="message error">
                     <p>您还有未完成的订单，请先完成或取消相关订单后再注销账户！</p>
-                    <p><a href="${pageContext.request.contextPath}/order/list.jsp">查看订单</a></p>
+                    <p><a href="${pageContext.request.contextPath}/user/order?action=list">查看订单</a></p>
                 </div>
                 <button class="btn btn-danger" disabled>确认注销</button>
                 <a href="${pageContext.request.contextPath}/user/profile?action=viewProfile" class="btn btn-secondary">返回</a>

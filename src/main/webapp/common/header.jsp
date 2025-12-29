@@ -30,10 +30,10 @@
         <!-- 搜索栏 -->
         <div class="search-container">
             <form action="${pageContext.request.contextPath}/user/book" method="get" class="search-form">
-                <!-- 添加隐藏字段来传递action参数 -->
+                <!-- 添加隐藏字段来传递 action参数 -->
                 <input type="hidden" name="action" value="search">
                 <div class="search-box">
-                    <input type="text" name="keyword" id="search-input" class="search-input" placeholder="搜索图书...">
+                    <label for="search-input"></label><input type="text" name="keyword" id="search-input" class="search-input" placeholder="搜索图书...">
                     <div id="search-results" class="search-results"></div>
                 </div>
                 <button type="submit" class="search-btn">搜索</button>
@@ -51,7 +51,7 @@
                     <a href="#" class="dropdown-toggle">我的 ▼</a>
                     <div class="dropdown-menu">
                         <a href="${pageContext.request.contextPath}/user/profile?action=viewProfile" class="dropdown-item">个人中心</a>
-                        <a href="order/list.jsp" class="dropdown-item">订单信息</a>
+                        <a href="${pageContext.request.contextPath}/user/order?action=list" class="dropdown-item">订单信息</a>
                         <div class="dropdown-divider"></div>
                         <a href="${pageContext.request.contextPath}/user/logout" class="dropdown-item logout-item">退出</a>
                     </div>

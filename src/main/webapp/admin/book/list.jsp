@@ -15,7 +15,7 @@
             max-width: 100%;
             table-layout: auto; /* 改为自适应布局 */
         }
-        
+
         .admin-book-list th, .admin-book-list td {
             border: 1px solid #ddd;
             padding: 8px; /* 缩小行高 */
@@ -24,22 +24,22 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        
+
         .admin-book-list th {
             background-color: #f2f2f2;
             font-weight: bold;
         }
-        
+
         .admin-book-list tr:hover {
             background-color: #f5f5f5;
         }
-        
+
         .admin-book-cover {
             width: 60px; /* 缩小封面图片 */
             height: 80px; /* 缩小封面图片 */
             object-fit: cover;
         }
-        
+
         /* 操作按钮样式 */
         .btn {
             padding: 4px 8px; /* 缩小按钮 */
@@ -51,34 +51,34 @@
             display: inline-block;
             font-size: 12px; /* 缩小按钮文字 */
         }
-        
+
         .btn-primary {
             background-color: #3498db;
             color: white;
         }
-        
+
         .btn-primary:hover {
             background-color: #2980b9;
         }
-        
+
         .btn-warning {
             background-color: #f39c12;
             color: white;
         }
-        
+
         .btn-warning:hover {
             background-color: #e67e22;
         }
-        
+
         .btn-danger {
             background-color: #e74c3c;
             color: white;
         }
-        
+
         .btn-danger:hover {
             background-color: #c0392b;
         }
-        
+
         /* 搜索和添加按钮区域 */
         .action-bar {
             display: flex;
@@ -86,25 +86,25 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .search-form {
             display: flex;
             gap: 10px;
         }
-        
+
         .search-form input[type="text"] {
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
-        
+
         /* 分页样式 */
         .pagination {
             display: flex;
             justify-content: center;
             margin-top: 20px;
         }
-        
+
         .pagination a {
             color: #3498db;
             padding: 8px 16px;
@@ -113,13 +113,13 @@
             margin: 0 4px;
             border-radius: 4px;
         }
-        
+
         .pagination a.active {
             background-color: #3498db;
             color: white;
             border: 1px solid #3498db;
         }
-        
+
         .pagination a:hover:not(.active) {
             background-color: #ddd;
         }
@@ -188,27 +188,27 @@
             background-color: #f0f0f0;
             white-space: nowrap;
         }
-        
+
         /* 管理后台布局 */
         .admin-container {
             display: flex;
             min-height: calc(100vh - 60px);
         }
-        
+
         .admin-main {
             flex: 1;
             padding: 20px;
             background-color: #f5f5f5;
             overflow-y: auto;
         }
-        
+
         .admin-content {
             background-color: white;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
+
         .admin-header {
             display: flex;
             justify-content: space-between;
@@ -217,13 +217,13 @@
             padding-bottom: 15px;
             border-bottom: 1px solid #eee;
         }
-        
+
         .admin-header h1 {
             margin: 0;
             color: #2c3e50;
             font-size: 24px;
         }
-        
+
         /* 表格滚动容器 */
         .table-scroll-container {
             overflow-x: auto; /* 添加左右滑动功能 */
@@ -235,7 +235,7 @@
     <div class="admin-container">
         <!-- 引入统一的左侧菜单栏 -->
         <%@ include file="/common/leftbar.jsp" %>
-        
+
         <!-- 右侧主内容 -->
         <main class="admin-main">
             <div class="admin-content">
@@ -252,7 +252,7 @@
                         <a href="${pageContext.request.contextPath}/admin/book/add.jsp" class="btn btn-primary">添加新图书</a>
                     </div>
                 </div>
-                
+
                 <!-- 图书列表 - 添加滚动容器 -->
                 <div class="table-scroll-container">
                     <table class="admin-book-list">
@@ -320,14 +320,14 @@
                                     <span class="sr-only">上一页</span>
                                 </a>
                             </li>
-                            
+
                             <%-- 页码按钮 --%>
-                            <% 
+                            <%
                                int currentPage = (Integer) request.getAttribute("page");
                                int totalPages = (Integer) request.getAttribute("totalPages");
                                int startPage = Math.max(1, currentPage - 2);
                                int endPage = Math.min(totalPages, currentPage + 2);
-                               
+
                                // 显示第一页
                                if (startPage > 1) {
                             %>
@@ -336,14 +336,14 @@
                             <li class="page-item disabled"><span class="page-link">...</span></li>
                             <% } %>
                             <% } %>
-                            
+
                             <%-- 显示中间页码 --%>
                             <% for (int i = startPage; i <= endPage; i++) { %>
                             <li class="page-item <%= i == currentPage ? "active" : "" %>">
                                 <a class="page-link" href="<%= request.getContextPath() %>/admin/book?action=list&page=<%= i %>"><%= i %></a>
                             </li>
                             <% } %>
-                            
+
                             <%-- 显示最后一页 --%>
                             <% if (endPage < totalPages) { %>
                             <% if (endPage < totalPages - 1) { %>
@@ -361,14 +361,14 @@
                             </li>
                         </ul>
                     </nav>
-                    
+
                     <div class="pagination-info">
-                        显示第 <%= ((Integer) request.getAttribute("page") - 1) * (Integer) request.getAttribute("pageSize") + 1 %> 到 
+                        显示第 <%= ((Integer) request.getAttribute("page") - 1) * (Integer) request.getAttribute("pageSize") + 1 %> 到
                         <%= Math.min((Integer) request.getAttribute("page") * (Integer) request.getAttribute("pageSize"), (Integer) request.getAttribute("totalBooks")) %> 条，
                         共 <%= request.getAttribute("totalBooks") %> 条记录
                     </div>
                 </div>
-                
+
                 <%-- 添加一些CSS样式使分页更美观 --%>
                 <style>
                     .pagination-container {
@@ -380,7 +380,7 @@
                         background-color: #f8f9fa;
                         border-radius: 4px;
                     }
-                    
+
                     .pagination-info {
                         font-size: 14px;
                         color: #6c757d;

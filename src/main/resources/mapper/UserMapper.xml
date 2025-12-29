@@ -20,6 +20,12 @@
         WHERE `username` = #{username}
     </select>
     
+    <select id="selectByUserType" resultType="com.bookstore.entity.User" parameterType="java.lang.String">
+        SELECT `user_id` as userId, `username`, `password`, `email`, `address`, `postal_code` as postalCode, `user_type` as userType, `register_time` as registerTime
+        FROM `user`
+        WHERE `user_type` = #{userType}
+    </select>
+    
     <select id="selectAll" resultType="com.bookstore.entity.User">
         SELECT `user_id` as userId, `username`, `password`, `email`, `address`, `postal_code` as postalCode, `user_type` as userType, `register_time` as registerTime
         FROM `user`

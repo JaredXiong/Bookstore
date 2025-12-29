@@ -151,10 +151,10 @@
                 
                 <!-- 快捷操作按钮 -->
                 <div class="quick-actions">
-                    <a href="book/add.jsp" class="quick-action-btn primary">添加新图书</a>
-                    <a href="order/list.jsp?status=待处理" class="quick-action-btn warning">处理订单</a>
-                    <a href="user/list.jsp" class="quick-action-btn danger">管理用户</a>
-                    <a href="discount/add.jsp" class="quick-action-btn success">创建折扣</a>
+                    <a href="${pageContext.request.contextPath}/admin/book/add.jsp" class="quick-action-btn primary">添加新图书</a>
+                    <a href="${pageContext.request.contextPath}/admin/order" class="quick-action-btn warning">处理订单</a>
+                    <a href="${pageContext.request.contextPath}/admin/users" class="quick-action-btn danger">管理用户</a>
+                    <a href="${pageContext.request.contextPath}/admin/discount/list.jsp" class="quick-action-btn success">创建折扣</a>
 
                 </div>
                 

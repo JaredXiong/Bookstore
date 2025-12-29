@@ -154,26 +154,61 @@ public class BookServiceImpl implements BookService {
         Jedis jedis = null;
         try {
             jedis = RedisUtil.getJedis();
+            
             // 清除所有图书缓存
-            jedis.keys(BOOK_CACHE_PREFIX + "*")
-                    .forEach(jedis::del);
+            try {
+                jedis.keys(BOOK_CACHE_PREFIX + "*")
+                        .forEach(jedis::del);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
             // 清除所有活跃图书缓存
-            jedis.del(ALL_BOOKS_CACHE_KEY);
+            try {
+                jedis.del(ALL_BOOKS_CACHE_KEY);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
             // 清除所有按类别缓存的图书
-            jedis.keys(BOOKS_BY_TYPE_CACHE_PREFIX + "*")
-                    .forEach(jedis::del);
+            try {
+                jedis.keys(BOOKS_BY_TYPE_CACHE_PREFIX + "*")
+                        .forEach(jedis::del);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
             // 清除所有随机图书缓存
-            jedis.keys(RANDOM_BOOKS_CACHE_KEY_PREFIX + "*")
-                    .forEach(jedis::del);
-            // 清除所有评分最高图书缓存
-            jedis.keys(TOP_RATED_BOOKS_CACHE_KEY_PREFIX + "*")
-                    .forEach(jedis::del);
-            // 清除所有最新图书缓存
-            jedis.keys(NEWEST_BOOKS_CACHE_KEY_PREFIX + "*")
-                    .forEach(jedis::del);
+            try {
+                jedis.keys(RANDOM_BOOKS_CACHE_KEY_PREFIX + "*")
+                        .forEach(jedis::del);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+            // 清除所有评分最高图书缓存（精选图书）
+            try {
+                jedis.keys(TOP_RATED_BOOKS_CACHE_KEY_PREFIX + "*")
+                        .forEach(jedis::del);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+            // 清除所有最新图书缓存（新书推荐）
+            try {
+                jedis.keys(NEWEST_BOOKS_CACHE_KEY_PREFIX + "*")
+                        .forEach(jedis::del);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
             // 清除所有图书分页缓存
-            jedis.keys(ALL_BOOKS_PAGE_CACHE_PREFIX + "*")
-                    .forEach(jedis::del);
+            try {
+                jedis.keys(ALL_BOOKS_PAGE_CACHE_PREFIX + "*")
+                        .forEach(jedis::del);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } finally {
             RedisUtil.closeJedis(jedis);
         }

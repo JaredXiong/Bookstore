@@ -91,5 +91,11 @@ public interface BookMapper {
      * @param bookId 图书ID
      * @param quantity 购买数量
      */
+    void updateStockForCancel(@Param("bookId") Integer bookId, @Param("quantity") Integer quantity);
+    /**
+     * 更新图书库存和销量（购买时）
+     * @param bookId 图书ID
+     * @param quantity 购买数量
+     */
     void updateStock(@Param("bookId") Integer bookId, @Param("quantity") Integer quantity);
 }

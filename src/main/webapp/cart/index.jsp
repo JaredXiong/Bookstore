@@ -150,13 +150,17 @@
         %>
     </div>
 
+    <!-- 购物车底部 -->
     <div class="cart-footer">
         <% 
             Double totalAmount = (Double) request.getAttribute("totalAmount");
             if (totalAmount != null && totalAmount > 0) {
         %>
         <div class="total-amount">总计：¥<%= totalAmount %></div>
-        <a href="#" class="btn btn-primary btn-lg">结算</a>
+        <form action="${pageContext.request.contextPath}/user/order?action=fillAddress" method="post">
+            <input type="hidden" name="fromCart" value="true">
+            <button type="submit" class="btn btn-primary btn-lg">结算</button>
+        </form>
         <% 
             }
         %>

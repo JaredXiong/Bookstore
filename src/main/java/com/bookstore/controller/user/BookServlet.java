@@ -202,7 +202,6 @@ public class BookServlet extends HttpServlet {
         String limitParam = request.getParameter("limit");
         Integer limit = (limitParam != null && !limitParam.isEmpty()) ? Integer.parseInt(limitParam) : 5;
         List<Book> newestBooks = bookService.getNewestBooks(limit);
-        System.out.println("newestBooks: " + newestBooks);
         request.setAttribute("newestBooks", newestBooks);
         // 直接返回JSON数据，用于AJAX请求
         response.setContentType("application/json");

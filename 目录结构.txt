@@ -20,11 +20,11 @@ D:\develop\JavaIDEA\Bookstore
 │   │   │           │   ├── admin/       # 管理员端控制器
 │   │   │           │   │   ├── AdminBookServlet.java      # 图书管理控制器
 │   │   │           │   │   ├── AdminCommentServlet.java   # 评论管理控制器
+│   │   │           │   │   ├── AdminDashboardServlet.java # 管理员首页控制器
 │   │   │           │   │   ├── AdminDiscountServlet.java  # 折扣管理控制器
 │   │   │           │   │   ├── AdminLoginServlet.java     # 管理员登录控制器
 │   │   │           │   │   ├── AdminOrderServlet.java     # 订单管理控制器
-│   │   │           │   │   ├── AdminUserServlet.java      # 用户管理控制器
-│   │   │           │   │   └── AdminDashboardServlet.java # 管理员首页控制器
+│   │   │           │   │   └── AdminUserServlet.java      # 用户管理控制器
 │   │   │           │   └── user/        # 用户端控制器
 │   │   │           │       ├── BookServlet.java          # 图书浏览控制器
 │   │   │           │       ├── CartServlet.java          # 购物车控制器
@@ -62,6 +62,7 @@ D:\develop\JavaIDEA\Bookstore
 │   │   │           │   ├── CommentService.java          # 评论服务接口
 │   │   │           │   ├── DiscountService.java         # 折扣服务接口
 │   │   │           │   ├── OrderService.java            # 订单服务接口
+│   │   │           │   ├── OrderItemService.java        # 订单项服务接口
 │   │   │           │   ├── UserService.java             # 用户服务接口
 │   │   │           │   └── impl/        # 服务实现
 │   │   │           │       ├── AdminServiceImpl.java     # 管理员服务实现
@@ -70,6 +71,7 @@ D:\develop\JavaIDEA\Bookstore
 │   │   │           │       ├── CommentServiceImpl.java   # 评论服务实现
 │   │   │           │       ├── DiscountServiceImpl.java  # 折扣服务实现
 │   │   │           │       ├── OrderServiceImpl.java     # 订单服务实现
+│   │   │           │       ├── OrderItemServiceImpl.java # 订单项服务实现
 │   │   │           │       └── UserServiceImpl.java      # 用户服务实现
 │   │   │           └── tool/            # 工具类
 │   │   │               ├── CookieUtil.java              # Cookie工具类
@@ -94,6 +96,7 @@ D:\develop\JavaIDEA\Bookstore
 │   │       │   └── web.xml              # Web应用部署描述符
 │   │       ├── admin/                   # 管理员端页面
 │   │       │   ├── index.jsp            # 管理员首页
+│   │       │   ├── list.jsp             # 管理员列表页
 │   │       │   ├── login.jsp            # 管理员登录页
 │   │       │   ├── profile.jsp          # 管理员个人中心
 │   │       │   ├── book/                # 图书管理页面
@@ -117,17 +120,21 @@ D:\develop\JavaIDEA\Bookstore
 │   │       ├── cart/                    # 用户端购物车页面
 │   │       │   └── index.jsp            # 购物车页面
 │   │       ├── common/                  # 公共页面组件
+│   │       │   ├── footer.jsp           # 页面底部
 │   │       │   ├── header.jsp           # 页面头部
-│   │       │   └── footer.jsp           # 页面底部
+│   │       │   └── leftbar.jsp          # 左侧导航栏
 │   │       ├── css/                     # 样式文件
 │   │       │   └── style.css            # 主样式文件
 │   │       ├── images/                  # 图片资源
 │   │       │   ├── banner/              # 轮播图
-│   │       │   └── book/                # 图书封面图片
+│   │       │   ├── book/                # 图书封面图片
+│   │       │   ├── books/               # 图书详情图片
+│   │       │   └── icons/               # 图标资源
 │   │       ├── index.jsp                # 网站首页
 │   │       ├── order/                   # 用户端订单页面
-│   │       │   ├── list.jsp             # 订单列表
-│   │       │   └── detail.jsp           # 订单详情
+│   │       │   ├── detail.jsp           # 订单详情
+│   │       │   ├── fillAddress.jsp      # 填写订单地址
+│   │       │   └── list.jsp             # 订单列表
 │   │       └── user/                    # 用户端页面
 │   │           ├── login.jsp            # 用户登录页
 │   │           ├── logout.jsp           # 用户注销页
@@ -136,4 +143,9 @@ D:\develop\JavaIDEA\Bookstore
 │   └── test/                            # 测试代码
 │       ├── java/                        # 测试Java代码
 │       └── resources/                   # 测试资源文件
-└── target/                              # 项目构建输出目录
+├── target/                              # 项目构建输出目录
+│   ├── Bookstore-1.0-SNAPSHOT/         # 构建后的项目文件
+│   ├── Bookstore-1.0-SNAPSHOT.war      # 构建后的WAR包
+│   ├── classes/                         # 编译后的类文件
+│   └── generated-sources/               # 生成的源代码
+└── 目录结构.txt                         # 项目目录结构说明

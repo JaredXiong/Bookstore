@@ -1,6 +1,7 @@
 package com.bookstore.mapper;
 
 import com.bookstore.entity.Order;
+import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
@@ -45,10 +46,10 @@ public interface OrderMapper {
      * @param orderId 订单ID
      * @param status 订单状态
      */
-    void updateStatus(String orderId, String status);
+    void updateStatus(@Param("orderId") String orderId, @Param("status") String status);
     /**
-     * 根据订单ID删除订单
-     * @param orderId 订单ID
+     * 根据订单 ID删除订单
+     * @param orderId 订单 ID
      */
     void delete(String orderId);
     /**
@@ -61,4 +62,16 @@ public interface OrderMapper {
      * @return 待处理订单数量
      */
     Integer getPendingOrderCount();
+    /**
+     * 查询待处理订单（待支付、待发货、待退款）
+     * @return 订单列表
+     */
+    List<Order> selectPendingOrders();
+    /**
+     * 搜索订单
+     * @param keyword 搜索关键词（订单号或用户名）
+     * @param status 订单状态
+     * @return 订单列表
+     */
+    List<Order> searchOrders(@Param("keyword") String keyword, @Param("status") String status);
 }

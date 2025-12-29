@@ -86,7 +86,7 @@
                         case 4: bookType = "技术"; break;
                         case 5: bookType = "其他"; break;
                     }
-                    out.print(bookType);
+                    <%= bookType %>
                 %>
             </span>
         </div>
@@ -112,7 +112,7 @@
         <div class="buy-buttons">
             <div class="quantity-selector">
                 <span>数量：</span>
-                <input type="number" id="quantity" name="quantity" value="1" min="1" max="<%= book.getStockNum() %>" style="width: 60px; margin: 0 10px; text-align: center;">
+                <label for="quantity"></label><input type="number" id="quantity" name="quantity" value="1" min="1" max="<%= book.getStockNum() %>" style="width: 60px; margin: 0 10px; text-align: center;">
                 <span>库存：<%= book.getStockNum() %>本</span>
             </div>
             <a href="#" onclick="addToCart(<%= book.getBookId() %>)" class="btn btn-success">
@@ -131,7 +131,7 @@
         
         function directBuy(bookId) {
             const quantity = document.getElementById('quantity').value;
-            window.location.href = '${pageContext.request.contextPath}/user/order?action=directBuy&bookId=' + bookId + '&quantity=' + quantity;
+            window.location.href = '${pageContext.request.contextPath}/user/order?action=fillAddress&bookId=' + bookId + '&quantity=' + quantity;
         }
         </script>
     </div>

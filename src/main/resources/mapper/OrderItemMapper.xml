@@ -3,21 +3,47 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bookstore.mapper.OrderItemMapper">
+    <!-- 定义OrderItemResultMap，关联查询图书信息 -->
+    <resultMap id="OrderItemResultMap" type="com.bookstore.entity.OrderItem">
+        <id column="item_id" property="itemId"/>
+        <result column="order_id" property="orderId"/>
+        <result column="book_id" property="bookId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="price" property="price"/>
+        
+        <!-- 关联Book对象 -->
+        <association property="book" javaType="com.bookstore.entity.Book">
+            <id column="book_id" property="bookId"/>
+            <result column="isbn" property="ISBN"/>
+            <result column="book_name" property="bookName"/>
+            <result column="author" property="author"/>
+            <result column="publisher" property="publisher"/>
+            <result column="price" property="price"/>
+            <result column="stock_num" property="stockNum"/>
+        </association>
+    </resultMap>
+    
     <insert id="insert" parameterType="com.bookstore.entity.OrderItem">
         INSERT INTO `order_item` (`order_id`, `book_id`, `quantity`, `price`)
         VALUES (#{orderId}, #{bookId}, #{quantity}, #{price})
     </insert>
     
-    <select id="selectById" resultType="com.bookstore.entity.OrderItem" parameterType="java.lang.Integer">
-        SELECT `item_id` as itemId, `order_id` as orderId, `book_id` as bookId, `quantity`, `price`
-        FROM `order_item`
-        WHERE `item_id` = #{itemId}
+    <select id="selectById" resultMap="OrderItemResultMap" parameterType="java.lang.Integer">
+        SELECT 
+            oi.`item_id`, oi.`order_id`, oi.`book_id`, oi.`quantity`, oi.`price`,
+            b.`isbn`, b.`book_name`, b.`author`, b.`publisher`, b.`price`, b.`stock_num`
+        FROM `order_item` oi
+        LEFT JOIN `book` b ON oi.`book_id` = b.`book_id`
+        WHERE oi.`item_id` = #{itemId}
     </select>
     
-    <select id="selectByOrderId" resultType="com.bookstore.entity.OrderItem" parameterType="java.lang.String">
-        SELECT `item_id` as itemId, `order_id` as orderId, `book_id` as bookId, `quantity`, `price`
-        FROM `order_item`
-        WHERE `order_id` = #{orderId}
+    <select id="selectByOrderId" resultMap="OrderItemResultMap" parameterType="java.lang.String">
+        SELECT 
+            oi.`item_id`, oi.`order_id`, oi.`book_id`, oi.`quantity`, oi.`price`,
+            b.`isbn`, b.`book_name`, b.`author`, b.`publisher`, b.`price`, b.`stock_num`
+        FROM `order_item` oi
+        LEFT JOIN `book` b ON oi.`book_id` = b.`book_id`
+        WHERE oi.`order_id` = #{orderId}
     </select>
     
     <delete id="deleteByOrderId" parameterType="java.lang.String">

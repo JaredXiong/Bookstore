@@ -66,6 +66,7 @@ public class UserServlet extends HttpServlet {
         if (user != null) {
             request.setAttribute("user", user);
             request.getRequestDispatcher("/user/profile.jsp?menu=profile").forward(request, response);
+            System.out.println("user: " + user);
         } else {
             response.sendRedirect(request.getContextPath() + "/user/login.jsp");
         }

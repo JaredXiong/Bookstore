@@ -50,10 +50,16 @@
         SET `isbn` = #{ISBN}, `book_name` = #{bookName}, `author` = #{author}, `publisher` = #{publisher}, `price` = #{price}, `stock_num` = #{stockNum}, `sold_num` = #{soldNum}, `introduction` = #{introduction}, `cover_image` = #{coverImage}, `is_active` = #{isActive}, `book_type` = #{bookType}
         WHERE `book_id` = #{bookId}
     </update>
-    
-    <update id="updateStock" parameterType="java.lang.Integer">
+
+    <update id="updateStock">
         UPDATE `book`
         SET `stock_num` = `stock_num` - #{quantity}, `sold_num` = `sold_num` + #{quantity}
+        WHERE `book_id` = #{bookId}
+    </update>
+
+    <update id="updateStockForCancel">
+        UPDATE `book`
+        SET `stock_num` = `stock_num` + #{quantity}, `sold_num` = `sold_num` - #{quantity}
         WHERE `book_id` = #{bookId}
     </update>
     

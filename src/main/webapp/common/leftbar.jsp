@@ -9,7 +9,7 @@
         
         <!-- 图书管理二级菜单 -->
         <li class="admin-nav-item has-submenu">
-            <a href="#" class="admin-nav-link submenu-toggle">图书管理 ▼</a>
+            <a href="${pageContext.request.contextPath}/admin/#" class="admin-nav-link submenu-toggle">图书管理 ▼</a>
             <ul class="admin-submenu">
                 <li><a href="${pageContext.request.contextPath}/admin/book?action=list" class="admin-submenu-link">图书列表</a></li>
                 <li><a href="${pageContext.request.contextPath}/admin/book/add.jsp" class="admin-submenu-link">添加图书</a></li>
@@ -17,7 +17,7 @@
         </li>
         
         <li class="admin-nav-item">
-            <a href="${pageContext.request.contextPath}/admin/order/list.jsp" class="admin-nav-link">订单管理</a>
+            <a href="${pageContext.request.contextPath}/admin/order?action=list" class="admin-nav-link">订单管理</a>
         </li>
         <li class="admin-nav-item">
             <a href="${pageContext.request.contextPath}/admin/discount/list.jsp" class="admin-nav-link">折扣管理</a>
@@ -26,13 +26,13 @@
             <a href="${pageContext.request.contextPath}/admin/comment/list.jsp" class="admin-nav-link">评论管理</a>
         </li>
         <li class="admin-nav-item">
-            <a href="${pageContext.request.contextPath}/admin/user/list.jsp" class="admin-nav-link">用户管理</a>
+            <a href="${pageContext.request.contextPath}/admin/users" class="admin-nav-link">用户管理</a>
         </li>
         <li class="admin-nav-item">
-            <a href="${pageContext.request.contextPath}/admin/list.jsp" class="admin-nav-link">管理员管理</a>
+            <a href="${pageContext.request.contextPath}/admin/admins" class="admin-nav-link">管理员管理</a>
         </li>
         <li class="admin-nav-item">
-            <a href="${pageContext.request.contextPath}/admin/profile.jsp" class="admin-nav-link">管理员个人中心</a>
+            <a href="${pageContext.request.contextPath}/admin/profile.jsp?tab=profile" class="admin-nav-link">管理员个人中心</a>
         </li>
     </ul>
 </aside>
