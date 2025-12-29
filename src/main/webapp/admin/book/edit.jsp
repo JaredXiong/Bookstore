@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>编辑图书 - 求知书店</title>
+    <link rel="icon" type="image/x-icon" href="../../images/icons/管理员.svg">
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
     <style>
         /* 管理后台布局样式 */

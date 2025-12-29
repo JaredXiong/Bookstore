@@ -7,6 +7,7 @@
 <head>
     <title>购物车</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../images/icons/书城.svg">
     <style>
         .cart-container {
             max-width: 1200px;

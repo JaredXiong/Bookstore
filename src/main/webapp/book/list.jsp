@@ -5,6 +5,7 @@
 <head>
     <title>图书列表</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../images/icons/书城.svg">
 </head>
 <body>
 <!-- 引入导航栏 -->

@@ -5,6 +5,7 @@
 <head>
     <title>填写订单信息</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../images/icons/书城.svg">
     <style>
         .order-container {
             max-width: 900px;
@@ -187,7 +188,14 @@
         <!-- 收货人信息填写栏 -->
         <div class="address-form">
             <h3>收货人信息</h3>
-            <form action="${pageContext.request.contextPath}/user/order?action=directBuy" method="post">
+            <% 
+                String fromCart = (String) request.getAttribute("fromCart");
+                String action = "directBuy";
+                if ("true".equals(fromCart)) {
+                    action = "createOrder";
+                }
+            %>
+            <form action="${pageContext.request.contextPath}/user/order?action=<%= action %>" method="post">
                 <input type="hidden" name="bookId" value="${requestScope.bookId}">
                 <input type="hidden" name="quantity" value="${requestScope.quantity}">
                 <input type="hidden" name="fromCart" value="${requestScope.fromCart}">

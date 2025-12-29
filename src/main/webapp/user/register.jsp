@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -5,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>用户注册 - 求知书店</title>
+    <link rel="icon" type="image/x-icon" href="../images/icons/书城.svg">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
@@ -26,9 +28,9 @@
             <h2>用户注册</h2>
             
             <!-- 显示错误信息 -->
-            <% if (request.getAttribute("errorMsg") != null) {
-                out.println("<div style='color: red; margin-bottom: 15px;'>" + request.getAttribute("errorMsg") + "</div>");
-            } %>
+            <c:if test="${not empty errorMsg}">
+                <div style='color: red; margin-bottom: 15px;'>${errorMsg}</div>
+            </c:if>
             
             <form action="${pageContext.request.contextPath}/user/register" method="post">
                 <div class="form-group">

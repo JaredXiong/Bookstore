@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>图书管理 - 求知书店</title>
+    <link rel="icon" type="image/x-icon" href="../../images/icons/管理员.svg">
     <style>
         /* 图书列表样式 */
         .admin-book-list {
